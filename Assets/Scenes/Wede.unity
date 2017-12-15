@@ -108,6 +108,52 @@ NavMeshSettings:
     tileSize: 256
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &1194766984
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4886548007853880, guid: 6037d3912f7504c5b88d9b2640bba21a, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4886548007853880, guid: 6037d3912f7504c5b88d9b2640bba21a, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4886548007853880, guid: 6037d3912f7504c5b88d9b2640bba21a, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4886548007853880, guid: 6037d3912f7504c5b88d9b2640bba21a, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4886548007853880, guid: 6037d3912f7504c5b88d9b2640bba21a, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4886548007853880, guid: 6037d3912f7504c5b88d9b2640bba21a, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4886548007853880, guid: 6037d3912f7504c5b88d9b2640bba21a, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4886548007853880, guid: 6037d3912f7504c5b88d9b2640bba21a, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1026911355903364, guid: 6037d3912f7504c5b88d9b2640bba21a, type: 2}
+      propertyPath: m_Name
+      value: Enemy
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 6037d3912f7504c5b88d9b2640bba21a, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1473323980
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,7 +165,7 @@ GameObject:
   - component: {fileID: 1473323982}
   - component: {fileID: 1473323981}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -138,6 +184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rows: 0
   columns: 0
+  ghost: {fileID: 1026911355903364, guid: 6037d3912f7504c5b88d9b2640bba21a, type: 2}
   floorTiles:
   - {fileID: 1013416921013946, guid: 3c4dd2888b77a45e690a1036cb2a5961, type: 2}
   wallTiles:

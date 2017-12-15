@@ -10,6 +10,8 @@ public class BoardManager : MonoBehaviour {
 	public int rows;
 	public int columns;
 
+	public GameObject ghost;
+	
 	public GameObject[] floorTiles;
 	public GameObject[] wallTiles;
 	public GameObject[] enemies;
@@ -51,6 +53,9 @@ public class BoardManager : MonoBehaviour {
 
 					case 1:
 						toSpawn = wallTiles [Random.Range (0, wallTiles.Length)];
+						break;
+					case 6: // ghost
+						toSpawn = ghost;
 						break;
 //					case 3:
 //						toSpawn = items [Random.Range (0, items.Length)];
