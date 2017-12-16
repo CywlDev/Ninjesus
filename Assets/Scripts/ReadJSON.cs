@@ -25,8 +25,21 @@ public class ReadJSON : MonoBehaviour {
 		return Room.CreateFromJSON(pathTxt.text);
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
+	public static Room loadBossRoomWithId(int id)
+	{
+		TextAsset pathTxt = (TextAsset)Resources.Load("Rooms/b"+ id.ToString(), typeof(TextAsset)); 
+		return Room.CreateFromJSON(pathTxt.text);
+	}
+	
+	public static Room loadKeyRoomWithId(int id)
+	{
+		TextAsset pathTxt = (TextAsset)Resources.Load("Rooms/k"+ id.ToString(), typeof(TextAsset)); 
+		return Room.CreateFromJSON(pathTxt.text);
+	}
+	
+	public static Room loadBonusRoomWithId(int id)
+	{
+		TextAsset pathTxt = (TextAsset)Resources.Load("Rooms/i"+ id.ToString(), typeof(TextAsset)); 
+		return Room.CreateFromJSON(pathTxt.text);
 	}
 }

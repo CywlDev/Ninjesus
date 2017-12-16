@@ -14,12 +14,19 @@ public class GameManager : MonoBehaviour {
 	public BoardManager boardScript;
 
 	public int playerLives = 8;
-	private int numOfLevels = 4;
+	//limit num of levels here (pls) dirty and fast
+	private int numOfLevels = 15;
+	private int numOfBossLevels = 2;
+	private int numOfKeyLevels = 1;
 	
-	public GameObject player; 
+	public GameObject player;
+	public bool hasKey = false;
 
 	public List<Room> rooms; // global room map
 	public Text levelText;
+
+	private int score;
+	public Text scoreText;
 	
 	// Use this for initialization
 	void Awake () 
@@ -40,11 +47,23 @@ public class GameManager : MonoBehaviour {
 	void InitGame()
 	{
 		rooms = new List<Room>(); // for new game empty rooms
-		int[][] randLvls = LevelGenerator.Instance.GenerateLevel(2);
+		int[][] randLvls = LevelGenerator.Instance.GenerateLevel(1);
 		List<Room> possibleRooms = new List<Room>();
 		for (int i = 1; i <= numOfLevels; i++)
 		{
 			possibleRooms.Add(ReadJSON.loadRoomWithId(i));
+		}
+		
+		List<Room> possibleBossRooms = new List<Room>();
+		for (int i = 1; i <= numOfBossLevels; i++)
+		{
+			possibleBossRooms.Add(ReadJSON.loadBossRoomWithId(i));
+		}
+		
+		List<Room> possibleKeyRooms = new List<Room>();
+		for (int i = 1; i <= numOfKeyLevels; i++)
+		{
+			possibleKeyRooms.Add(ReadJSON.loadKeyRoomWithId(i));
 		}
 		
 		for (int x = 0; x < randLvls.Length; x++)
@@ -64,16 +83,16 @@ public class GameManager : MonoBehaviour {
 						r = findFittingRoom(randLvls, possibleRooms, x, y);
 						break;
 					case RoomType.Bonus:
-						r = findFittingRoom(randLvls, possibleRooms, x, y);
+						r = findFittingRoom(randLvls, possibleRooms, x, y); //TODO throw not implemented exception ;)
 						break;
 					case RoomType.Boss:
-						r = findFittingRoom(randLvls, possibleRooms, x, y);
+						r = findFittingRoom(randLvls, possibleBossRooms, x, y);
 						break;
 					case RoomType.Key:
-						r = findFittingRoom(randLvls, possibleRooms, x, y);
+						r = findFittingRoom(randLvls, possibleKeyRooms, x, y);
 						break;
 					case RoomType.Trap:
-						r = findFittingRoom(randLvls, possibleRooms, x, y);
+						r = findFittingRoom(randLvls, possibleRooms, x, y); //TODO throw not implemented exception ;)
 						break;
 						
 				}
@@ -101,6 +120,12 @@ public class GameManager : MonoBehaviour {
 			liveString += "@";
 		}
 		return liveString;
+	}
+	
+	public void addScore(int score)
+	{
+		this.score += score;
+		scoreText.text = "Score: " + this.score.ToString();
 	}
 	
 	private Room findFittingRoom(int[][] overmap, List<Room> possibleRooms, int x, int y)
