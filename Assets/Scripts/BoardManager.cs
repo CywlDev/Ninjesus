@@ -21,6 +21,7 @@ public class BoardManager : MonoBehaviour {
 	private List<Vector3> gridPositions = new List<Vector3>();
 
 	public List<List<int>> level;
+	private Room currentRoom;
 	
 	private void InitializeGrid()
 	{
@@ -93,8 +94,30 @@ public class BoardManager : MonoBehaviour {
 				GameObject toInstantiate = floorTiles[Random.Range (0,floorTiles.Length)];
 
 				//Check if we current position is at board edge, if so choose a random outer wall prefab from our array of outer wall tiles.
-				if(x == -1 || x == columns || y == -1 || y == rows)
-					toInstantiate = wallTiles [Random.Range (0, wallTiles.Length)];
+				if (x == -1 || x == columns || y == -1 || y == rows)
+				{
+					if (x == (columns) / 2 && y == -1 && currentRoom.realdoorBottom) // btm door
+					{
+						
+					}
+					else if (x == (columns) / 2 && y == rows && currentRoom.realdoorTop) // top door
+					{
+						
+					}
+					else if (y == (rows) / 2 && x == -1 && currentRoom.realDoorLeft) // left door
+					{
+						
+					}
+					else if (y == (rows) / 2 && x == columns && currentRoom.realdoorRight) // left door
+					{
+						
+					}
+					else
+					{
+						toInstantiate = wallTiles[Random.Range(0, wallTiles.Length)];
+					}
+						
+				}
 
 				//Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
 				GameObject instance =
@@ -105,14 +128,15 @@ public class BoardManager : MonoBehaviour {
 			}
 		}
 	}
-
-	private void LoadRoom(Room room)
+	
+	public void LoadRoom(Room room)
 	{
-		List<List<int>> map = new List<List<int>>();
+		level = new List<List<int>>();
+		currentRoom = room;
 		
 		for (int i = 0; i < room.rows; i++)
 		{
-			map.Add(room.map.Skip(i * room.cols).Take(room.cols).ToList());
+			level.Add(room.map.Skip(i * room.cols).Take(room.cols).ToList());
 		}
 
 		this.columns = room.cols;
@@ -121,13 +145,14 @@ public class BoardManager : MonoBehaviour {
 		SetupBoard();
 		InitializeGrid();
 		
-		fillFromMap(map.Select(x => x.ToArray()).ToArray());
+		fillFromMap(level.Select(x => x.ToArray()).ToArray());
 	}
 	
-	public void SetupScene()
+	public void SetupScene(Room r)
 	{
-//		level = new List<List<int>> ();
-		LoadRoom(ReadJSON.loadRoomWithId(1));
+// 		generate random map with rooms
+		
+		LoadRoom(r);
 		
 
 //		LoadLevelFromCSV(levelNr);
