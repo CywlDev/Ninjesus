@@ -13,7 +13,10 @@ public class PlayerScript : MonoBehaviour {
     const int STATE_IDLE_LEFT = 0;
     const int STATE_IDLE_RIGHT = 2;
     const int STATE_WALK_LEFT = 1;
-    const int STATE_WALK_RIGHT = 3;
+    const int STATE_WALK_RIGHT = 3;    
+    const int STATE_SHOOT_RIGHT = 6;
+    const int STATE_SHOOT_LEFT = 5;
+
 
     int _currentAnimationState = STATE_IDLE_LEFT;
 
@@ -80,6 +83,7 @@ public class PlayerScript : MonoBehaviour {
             if (weapon != null)
             {
                 // false because the player is not an enemy
+                
                 weapon.Attack(false,2);
             }
         }
@@ -175,6 +179,41 @@ public class PlayerScript : MonoBehaviour {
             }
 
         }
+        
+        if(Input.GetKey(KeyCode.D))
+        {
+            changeState(STATE_SHOOT_RIGHT);
+            _currentDirection = "right";
+        }
+        if (Input.GetKey(KeyCode.W))
+        {
+            if (_currentDirection == "left")
+            {
+                changeState(STATE_SHOOT_LEFT);
+            }
+
+            if (_currentDirection == "right")
+            {
+                changeState(STATE_SHOOT_RIGHT);
+            }
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            changeState(STATE_SHOOT_LEFT);
+            _currentDirection = "left";
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            if (_currentDirection == "left")
+            {
+                changeState(STATE_SHOOT_LEFT);
+            }
+
+            if (_currentDirection == "right")
+            {
+                changeState(STATE_SHOOT_RIGHT);
+            }
+        }
 
     }
 
@@ -261,6 +300,14 @@ public class PlayerScript : MonoBehaviour {
 
             case STATE_IDLE_RIGHT:
                 animator.SetInteger("state", STATE_IDLE_RIGHT);
+                break;
+                 
+            case STATE_SHOOT_RIGHT:
+                animator.SetInteger("state", STATE_SHOOT_RIGHT);
+                break;
+            
+            case STATE_SHOOT_LEFT:
+                animator.SetInteger("state", STATE_SHOOT_LEFT);
                 break;
 
         }
