@@ -16,6 +16,8 @@ public class BoardManager : MonoBehaviour {
 
 	public GameObject jesus; 
 	
+	public GameObject door;
+	
 	public GameObject[] floorTiles;
 	public GameObject[] wallTiles;
 	public GameObject[] enemies;
@@ -46,7 +48,7 @@ public class BoardManager : MonoBehaviour {
 	{
 		// this does use the internal encoding for enemys and more
 		// have a look at the github/wiki
-		Debug.Log(level);
+
 		for(int y = 0; y < level.Length; y++)
 		{
 			for(int x = 0; x < level[y].Length; x++)
@@ -92,6 +94,10 @@ public class BoardManager : MonoBehaviour {
 	
 	private void SetupBoard()
 	{
+		if (boardHolder != null)
+		{
+			Destroy(boardHolder.gameObject);
+		}
 		boardHolder = new GameObject ("Board").transform;
 
 		//Loop along x axis, starting from -1 (to fill corner) with floor or outerwall edge tiles.
@@ -101,26 +107,46 @@ public class BoardManager : MonoBehaviour {
 			for(int y = -1; y < rows + 1; y++)
 			{
 				//Choose a random tile from our array of floor tile prefabs and prepare to instantiate it.
-				GameObject toInstantiate = floorTiles[Random.Range (0,floorTiles.Length)];
-
+//				GameObject toInstantiate = floorTiles[Random.Range (0,floorTiles.Length)];
+				GameObject toInstantiate = null;
 				//Check if we current position is at board edge, if so choose a random outer wall prefab from our array of outer wall tiles.
 				if (x == -1 || x == columns || y == -1 || y == rows)
 				{
 					if (x == (columns) / 2 && y == -1 && currentRoom.realdoorBottom) // btm door
 					{
-						
+						GameObject instance = Instantiate(door, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+						instance.AddComponent<Door>();
+						Door d = instance.GetComponent<Door>();
+						d.nextX = this.currentRoom.x;
+						d.nextY = this.currentRoom.y - 1;
+						instance.transform.SetParent(boardHolder);
 					}
 					else if (x == (columns) / 2 && y == rows && currentRoom.realdoorTop) // top door
 					{
-						
+						GameObject instance = Instantiate(door, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+						instance.AddComponent<Door>();
+						Door d = instance.GetComponent<Door>();
+						d.nextX = this.currentRoom.x;
+						d.nextY = this.currentRoom.y + 1;
+						instance.transform.SetParent(boardHolder);
 					}
 					else if (y == (rows) / 2 && x == -1 && currentRoom.realDoorLeft) // left door
 					{
-						
+						GameObject instance = Instantiate(door, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+						instance.AddComponent<Door>();
+						Door d = instance.GetComponent<Door>();
+						d.nextX = this.currentRoom.x - 1 ;
+						d.nextY = this.currentRoom.y;
+						instance.transform.SetParent(boardHolder);
 					}
-					else if (y == (rows) / 2 && x == columns && currentRoom.realdoorRight) // left door
+					else if (y == (rows) / 2 && x == columns && currentRoom.realdoorRight) // right door
 					{
-						
+						GameObject instance = Instantiate(door, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+						instance.AddComponent<Door>();
+						Door d = instance.GetComponent<Door>();
+						d.nextX = this.currentRoom.x + 1 ;
+						d.nextY = this.currentRoom.y;
+						instance.transform.SetParent(boardHolder);
 					}
 					else
 					{
@@ -129,12 +155,16 @@ public class BoardManager : MonoBehaviour {
 						
 				}
 
-				//Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
-				GameObject instance =
-					Instantiate (toInstantiate, new Vector3 (x, y, 0f), Quaternion.identity) as GameObject;
+				if (toInstantiate != null)
+				{
+					//Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
+					GameObject instance =
+						Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
 
-				//Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
-				instance.transform.SetParent (boardHolder);
+					//Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
+					instance.transform.SetParent(boardHolder);
+				}
+				
 			}
 		}
 	}
