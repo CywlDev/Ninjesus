@@ -34,6 +34,10 @@ public class ShotScript : MonoBehaviour {
 				
 			}
 		}
+		if (otherCollider.name.Equals("Wall(Clone)"))
+		{
+			destroy();
+		}
 		
 	}
 
