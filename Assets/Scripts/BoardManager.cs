@@ -11,6 +11,10 @@ public class BoardManager : MonoBehaviour {
 	public int columns;
 
 	public GameObject ghost;
+
+	public GameObject boss;
+
+	public GameObject jesus; 
 	
 	public GameObject[] floorTiles;
 	public GameObject[] wallTiles;
@@ -56,6 +60,12 @@ public class BoardManager : MonoBehaviour {
 						break;
 					case 6: // ghost
 						toSpawn = ghost;
+						break;
+					case 5:
+						toSpawn = boss;
+						break;
+					case 4:
+						toSpawn = jesus;
 						break;
 //					case 3:
 //						toSpawn = items [Random.Range (0, items.Length)];

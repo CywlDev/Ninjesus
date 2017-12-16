@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour {
 
-//	private WeaponScript[] weapons;
+private WeaponScript[] weapons;
 
 	void Awake()
 	{
-//		// Retrieve the weapon only once
-//		weapons = GetComponentsInChildren<WeaponScript>();
+		// Retrieve the weapon only once
+		weapons = GetComponentsInChildren<WeaponScript>();
 	}
 
 	void Update()
 	{
-//		foreach (WeaponScript weapon in weapons)
-//		{
-//			// Auto-fire
-//			if (weapon != null && weapon.CanAttack)
-//			{
-//				weapon.Attack(true);
-//			}
-//		}
+		foreach (WeaponScript weapon in weapons)
+		{
+			// Auto-fire
+			if (weapon != null && weapon.CanAttack)
+		{
+				weapon.AttackAngeld(true, new Vector2(Random.Range(-1,1),Random.Range(-1,1)));
+		}
+		}
 	}
 }

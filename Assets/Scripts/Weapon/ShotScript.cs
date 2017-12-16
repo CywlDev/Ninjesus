@@ -21,4 +21,25 @@ public class ShotScript : MonoBehaviour {
 		// 2 - Limited time to live to avoid any leak
 		Destroy(gameObject, (float)2.33); // 20sec
 	}
+	
+	void OnTriggerEnter2D(Collider2D otherCollider)
+	{
+		// Is this a shot?
+		ShotScript shot = otherCollider.gameObject.GetComponent<ShotScript>();
+		if(shot != null)
+		{
+			if(shot.isEnemyShot && !isEnemyShot){
+				shot.destroy();
+				destroy();
+				
+			}
+		}
+		
+	}
+
+	void destroy()
+	{
+		Destroy(gameObject);
+	}
+
 }
