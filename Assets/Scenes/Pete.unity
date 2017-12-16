@@ -434,6 +434,7 @@ MonoBehaviour:
   ghost: {fileID: 1826745825172814, guid: f4d72708367b0cd489e56cdd6ae0b6b1, type: 2}
   boss: {fileID: 1064937107394446, guid: 345af5250ab01d34389969923d0bea75, type: 2}
   items: {fileID: 110520, guid: 46e8bf4bf645a47e3ae1b60c7e18418c, type: 2}
+  imp: {fileID: 1941738836491430, guid: a88c99c2e4149b247b023e78a97acff0, type: 2}
   door: {fileID: 1013948820020268, guid: 8f37c34eac5cb44a5a43358e174676d8, type: 2}
   floorTiles:
   - {fileID: 1013416921013946, guid: b6ed6aae7d46a47f1886be45f7f9a9ba, type: 2}
@@ -470,8 +471,10 @@ MonoBehaviour:
   boardScript: {fileID: 1473323981}
   playerLives: 6
   player: {fileID: 1580887174153000, guid: 87ee67315fb03604989376408b637db7, type: 2}
+  hasKey: 0
   rooms: []
   levelText: {fileID: 0}
+  scoreText: {fileID: 0}
 --- !u!4 &1473323983
 Transform:
   m_ObjectHideFlags: 0
@@ -628,61 +631,3 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1881854148}
---- !u!1001 &2029025595
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4154550992119628, guid: a88c99c2e4149b247b023e78a97acff0, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4154550992119628, guid: a88c99c2e4149b247b023e78a97acff0, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4154550992119628, guid: a88c99c2e4149b247b023e78a97acff0, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4154550992119628, guid: a88c99c2e4149b247b023e78a97acff0, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4154550992119628, guid: a88c99c2e4149b247b023e78a97acff0, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4154550992119628, guid: a88c99c2e4149b247b023e78a97acff0, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4154550992119628, guid: a88c99c2e4149b247b023e78a97acff0, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4154550992119628, guid: a88c99c2e4149b247b023e78a97acff0, type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 212292179904959058, guid: a88c99c2e4149b247b023e78a97acff0,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 2c016fcf6d69ca84cad3e27df8bc6c06,
-        type: 3}
-    - target: {fileID: 61842990523342504, guid: a88c99c2e4149b247b023e78a97acff0,
-        type: 2}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.64
-      objectReference: {fileID: 0}
-    - target: {fileID: 61842990523342504, guid: a88c99c2e4149b247b023e78a97acff0,
-        type: 2}
-      propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.64
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: a88c99c2e4149b247b023e78a97acff0, type: 2}
-  m_IsPrefabParent: 0
