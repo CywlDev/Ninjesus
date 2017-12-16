@@ -18,6 +18,8 @@ public class ShotScript : MonoBehaviour {
 
 	void Start()
 	{
+		
+//		this.transform.SetParent(gameObject.);
 		// 2 - Limited time to live to avoid any leak
 		Destroy(gameObject, (float)2.33); // 20sec
 	}
@@ -35,6 +37,10 @@ public class ShotScript : MonoBehaviour {
 			}
 		}
 		if (otherCollider.name.Equals("Wall(Clone)"))
+		{
+			destroy();
+		}
+		if (otherCollider.tag.Equals("Door"))
 		{
 			destroy();
 		}

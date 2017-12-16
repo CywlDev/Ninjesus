@@ -22,10 +22,21 @@ public class HealthScript : MonoBehaviour {
 	{
 		hp -= damageCount;
 
+		var obj = this.GetComponentInParent(typeof(PlayerScript));
+
+		
+		
 		if (hp <= 0)
 		{
 			// Dead!
-			Destroy(gameObject);
+			if (obj != null)
+			{
+				// todo show game over
+			}
+			else
+			{
+				Destroy(gameObject);
+			}
 		}
 	}
 

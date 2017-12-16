@@ -127,6 +127,12 @@ public class GameManager : MonoBehaviour {
 	{
 		if (!boardScript.Cleared)
 			return;
+		
+		//Destroy all shoooots
+		foreach (var componentsInChild in player.GetComponentsInChildren<ShotScript>())
+		{
+			Destroy(componentsInChild.gameObject);
+		}
 			
 		var oldX = boardScript.currentRoom.x;
 		var oldY = boardScript.currentRoom.y;

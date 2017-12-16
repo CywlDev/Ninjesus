@@ -19,7 +19,7 @@ private WeaponScript[] weapons;
 			// Auto-fire
 			if (weapon != null && weapon.CanAttack)
 		{
-				weapon.AttackAngeld(true, new Vector2(Random.Range(-1,1),Random.Range(-1,1)));
+				weapon.AttackAngled(true, new Vector2(Random.Range(-1,1),Random.Range(-1,1)));
 		}
 		}
 	}
