@@ -23,7 +23,7 @@ public class Room
 	public int x;
 	public int y;
 	
-	private bool cleared = false;
+	public bool cleared = false;
 
 	public static Room CreateFromJSON(string jsonString)
 	{

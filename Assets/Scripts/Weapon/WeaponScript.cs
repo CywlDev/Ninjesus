@@ -55,7 +55,7 @@ public class WeaponScript : MonoBehaviour {
      
      			// Create a new shot
      			var shotTransform = Instantiate(shotPrefab) as Transform;
-     
+			    shotTransform.SetParent(gameObject.transform);
      			// Assign position
      			shotTransform.position = transform.position;
      
@@ -91,7 +91,7 @@ public class WeaponScript : MonoBehaviour {
      		}
      	}
 	
-	public void AttackAngeld(bool isEnemy,Vector2 direction)
+	public void AttackAngled(bool isEnemy,Vector2 direction)
 	{
 		if (direction == new Vector2(0, 0))
 		{
@@ -103,6 +103,7 @@ public class WeaponScript : MonoBehaviour {
 
 			// Create a new shot
 			var shotTransform = Instantiate(shotPrefab) as Transform;
+			shotTransform.SetParent(gameObject.transform);
 
 			// Assign position
 			shotTransform.position = transform.position;

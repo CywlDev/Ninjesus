@@ -5,6 +5,7 @@ using System.Linq;
 using RoomGen;
 using RoomGen.Enums;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject player; 
 
 	public List<Room> rooms; // global room map
+	public Text levelText;
 	
 	// Use this for initialization
 	void Awake () 
@@ -85,10 +87,22 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 		player = Instantiate (player, new Vector3 (7, 7, 0f), Quaternion.identity) as GameObject;
-//		player.transform.SetPositionAndRotation(new Vector3(0f,0f,0f), Quaternion.identity);
+		HealthScript hs = player.GetComponent<HealthScript>();
+		hs.hp = playerLives;
+
 		LoadLevelWithCoords(7, 7);
 	}
 
+	private string getHealthString(int lives)
+	{
+		string liveString = "";
+		for (int i = 0; i < lives; i++)
+		{
+			liveString += "@";
+		}
+		return liveString;
+	}
+	
 	private Room findFittingRoom(int[][] overmap, List<Room> possibleRooms, int x, int y)
 	{
 		bool left = overmap[x - 1][y] != (int) RoomType.Null;
@@ -110,10 +124,27 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void LoadLevelWithCoords(int x, int y)
-
 	{
+		if (!boardScript.Cleared)
+			return;
+		
+		//Destroy all shoooots
+		foreach (var componentsInChild in player.GetComponentsInChildren<ShotScript>())
+		{
+			Destroy(componentsInChild.gameObject);
+		}
+			
 		var oldX = boardScript.currentRoom.x;
 		var oldY = boardScript.currentRoom.y;
+		
+		//set room where youre coming from to cleared
+
+		var oldRoom = rooms.FirstOrDefault(r => r.x == oldX && r.y == oldY);
+		if (oldRoom != null)
+		{
+			oldRoom.cleared = true;
+		}
+		
 		
 		Position playerPos = Position.Center;
 		if (oldX < x) //went right, spawn left
@@ -152,6 +183,10 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (player != null)
+		{
+			HealthScript hs = player.GetComponent<HealthScript>();
+			levelText.text = getHealthString(hs.hp);
+		}
 	}
 }

@@ -29,6 +29,13 @@ public class BoardManager : MonoBehaviour {
 
 	public List<List<int>> level;
 	public Room currentRoom;
+
+	private List<GameObject> aliveEnemies = new List<GameObject>();
+
+	public bool Cleared
+	{
+		get { return aliveEnemies.All(x => x == null);  }
+	}
 	
 	private void InitializeGrid()
 	{
@@ -49,12 +56,13 @@ public class BoardManager : MonoBehaviour {
 	{
 		// this does use the internal encoding for enemys and more
 		// have a look at the github/wiki
-
+		aliveEnemies = new List<GameObject>();
 		for(int y = 0; y < level.Length; y++)
 		{
 			for(int x = 0; x < level[y].Length; x++)
 			{
 				GameObject toSpawn;
+				bool isEnemy = false;
 				int tileType = level[y][x]; //for encoding, see google drive
 
 				switch (tileType) {
@@ -64,9 +72,11 @@ public class BoardManager : MonoBehaviour {
 						break;
 					case 6: // ghost
 						toSpawn = ghost;
+						isEnemy = true;
 						break;
 					case 5:
 						toSpawn = boss;
+						isEnemy = true;
 						break;
 //					case 4:
 //						toSpawn = player;
@@ -83,11 +93,20 @@ public class BoardManager : MonoBehaviour {
 				//instanciate the chosen tile
 				if (toSpawn != null)
 				{
+					if (isEnemy && currentRoom.cleared)
+					{
+						break;
+					}
 					GameObject instance = Instantiate (toSpawn, new Vector3 (x, rows - y - 1, 0f), Quaternion.identity) as GameObject;
 
 					//Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
 					instance.transform.SetParent (boardHolder);
+					if (isEnemy)
+					{
+						aliveEnemies.Add(instance);
+					}
 				}
+				
 			}
 		}
 		
