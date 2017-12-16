@@ -20,8 +20,9 @@ public class ReadJSON : MonoBehaviour {
 
 	public static Room loadRoomWithId(int id)
 	{
-		string jsonString = File.ReadAllText(Application.dataPath + "/Rooms/r"+ id.ToString() + ".json");
-		return Room.CreateFromJSON(jsonString);
+//		string jsonString = File.ReadAllText(Application.dataPath + "/Rooms/r"+ id.ToString() + ".json");
+		TextAsset pathTxt = (TextAsset)Resources.Load("Rooms/r"+ id.ToString(), typeof(TextAsset)); 
+		return Room.CreateFromJSON(pathTxt.text);
 	}
 	
 	// Update is called once per frame
