@@ -4,6 +4,15 @@ using System.Linq;
 using UnityEngine;
 
 public class BossScript : MonoBehaviour {
+	
+	Animator animator;
+
+	//animation states - the values in the animator conditions
+	const int STATE_LEFT = 0;
+	const int STATE_RIGHT = 1;
+	int _currentAnimationState = STATE_LEFT;
+
+	string _currentDirection = "left";
 
 	// 1 - Designer variables
 
@@ -36,10 +45,12 @@ public class BossScript : MonoBehaviour {
 		var raycastTop = Physics2D.RaycastAll(transform.position, Vector2.up,Y_WallOffset);
 		var raycastBot = Physics2D.RaycastAll(transform.position, Vector2.down,Y_WallOffset);
 		if (raycastLeft.Length >= 1)
-		{
+		{ 
         	if (raycastLeft.Any(x=>x.collider.name == "Wall(Clone)"))
 			{
 				direction = new Vector2(1,direction.y);
+				_currentDirection = "right";
+				changeState(STATE_RIGHT);
 			}
 		}
 		if (raycastRight.Length >=1)
@@ -47,6 +58,8 @@ public class BossScript : MonoBehaviour {
 			if (raycastRight.Any(x=>x.collider.name == "Wall(Clone)"))
 			{
 				direction = new Vector2(-1,direction.y);
+				_currentDirection = "left";
+				changeState(STATE_LEFT);
 			}
 		}
 		if (raycastTop.Length >=1)
@@ -54,6 +67,15 @@ public class BossScript : MonoBehaviour {
 			if (raycastTop.Any(x=>x.collider.name == "Wall(Clone)"))
 			{
 				direction = new Vector2(direction.x,-1);
+				if (_currentDirection == "left")
+				{
+					changeState(STATE_LEFT);
+				}
+
+				if (_currentDirection == "right")
+				{
+					changeState(STATE_RIGHT);
+				}
 			}
 		}
 		if (raycastBot.Length >=1)
@@ -61,6 +83,15 @@ public class BossScript : MonoBehaviour {
 			if (raycastBot.Any(x=>x.collider.name == "Wall(Clone)"))
 			{
 				direction = new Vector2(direction.x,1);
+				if (_currentDirection == "left")
+				{
+					changeState(STATE_LEFT);
+				}
+
+				if (_currentDirection == "right")
+				{
+					changeState(STATE_RIGHT);
+				}
 			}
 		}
 	}
@@ -72,5 +103,30 @@ public class BossScript : MonoBehaviour {
 		// Apply movement to the rigidbody
 		rigidbodyComponent.velocity = movement;
 		
+	}
+	
+	void changeState(int state)
+	{
+
+		if (_currentAnimationState == state)
+			return;
+
+		switch (state)
+		{
+
+			case STATE_LEFT:
+				animator.SetInteger("state", STATE_LEFT);
+				break;
+
+			case STATE_RIGHT:
+				animator.SetInteger("state", STATE_RIGHT);
+				break;
+
+                
+            
+
+		}
+
+		_currentAnimationState = state;
 	}
 }

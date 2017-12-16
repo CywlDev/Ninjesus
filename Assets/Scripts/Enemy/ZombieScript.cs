@@ -11,7 +11,6 @@ public class ZombieScript : MonoBehaviour {
     const int STATE_IDLE_RIGHT = 2;
     const int STATE_WALK_LEFT = 1;
     const int STATE_WALK_RIGHT = 3;
-
     int _currentAnimationState = STATE_IDLE_LEFT;
 
     string _currentDirection = "left";
@@ -77,6 +76,8 @@ public class ZombieScript : MonoBehaviour {
             case STATE_IDLE_RIGHT:
                 animator.SetInteger("state", STATE_IDLE_RIGHT);
                 break;
+                
+            
 
         }
 
