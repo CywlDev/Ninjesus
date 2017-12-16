@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 161172180}
   - component: {fileID: 161172179}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Hearts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.88235295, g: 0.18814881, b: 0.18814881, a: 1}
+  m_Color: {r: 1, g: 0.6544118, b: 0.6544118, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -718,6 +718,7 @@ MonoBehaviour:
   playerLives: 6
   player: {fileID: 1557151752233572, guid: 3d958a58535f8444ab6a7f626c567c1f, type: 2}
   rooms: []
+  levelText: {fileID: 161172179}
 --- !u!4 &1473323983
 Transform:
   m_ObjectHideFlags: 0
@@ -798,7 +799,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 'Game Over '
 --- !u!222 &1512626708
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -816,7 +817,7 @@ GameObject:
   - component: {fileID: 1881854151}
   - component: {fileID: 1881854150}
   m_Layer: 5
-  m_Name: Image
+  m_Name: GO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
