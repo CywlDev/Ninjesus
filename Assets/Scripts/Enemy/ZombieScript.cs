@@ -6,6 +6,7 @@ public class ZombieScript : MonoBehaviour {
 
     Animator animator;
 
+    //animation states - the values in the animator conditions
     const int STATE_IDLE_LEFT = 0;
     const int STATE_IDLE_RIGHT = 2;
     const int STATE_WALK_LEFT = 1;
@@ -15,182 +16,39 @@ public class ZombieScript : MonoBehaviour {
 
     string _currentDirection = "left";
 
-    int last_direction = 0;
+
+
+    int last_direction = 3;
 
     bool stop = true;
-
+    public int dmg = 1;
 
     public float speed = 1.5f;
-    public Vector2 direction = new Vector2(-1, 0);
+    
+    private double akt_time;
+    private double reactTime;
+    private int charge_direction;
+    public float size = 0.5f;
 
-    private Vector2 movement;
     private Rigidbody2D rigidbodyComponent;
 
     // Use this for initialization
     void Start()
     {
-        //define the animator attached to the player
         animator = this.GetComponent<Animator>();
-    }
-
-    void Update()
-    {
-        // 2 - Movement
-        //  movement = new Vector2(
-        //   speed.x * direction.x,
-        //    speed.y * direction.y);
-        var charge_direction=0;
-        
-        do
-        {
-            charge_direction = (int)(Random.value - 0.01) * 4;
-        } while (charge_direction==last_direction);
-        
-        
-
-        
-
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            transform.position += Vector3.left * speed * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            transform.position += Vector3.right * speed * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            transform.position += Vector3.up * speed * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            transform.position += Vector3.down * speed * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            WeaponScript weapon = GetComponent<WeaponScript>();
-            if (weapon != null)
-            {
-                // false because the player is not an enemy
-                weapon.Attack(false, 2);
-            }
-        }
-        if (Input.GetKey(KeyCode.W))
-        {
-            WeaponScript weapon = GetComponent<WeaponScript>();
-            if (weapon != null)
-            {
-                // false because the player is not an enemy
-                weapon.Attack(false, 1);
-            }
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            WeaponScript weapon = GetComponent<WeaponScript>();
-            if (weapon != null)
-            {
-                // false because the player is not an enemy
-                weapon.Attack(false, 0);
-            }
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            WeaponScript weapon = GetComponent<WeaponScript>();
-            if (weapon != null)
-            {
-                // false because the player is not an enemy
-                weapon.Attack(false, 3);
-            }
-        }
-
-    }
-
-    // FixedUpdate is used insead of Update to better handle the physics based jump
-    void FixedUpdate()
-    {
-        //Check for keyboard input
-
-        //if (rigidbodyComponent == null) rigidbodyComponent = GetComponent<Rigidbody2D>();
-
-        // Apply movement to the rigidbody
-
-
-
-        if (Input.GetKey("up"))
-        {
-            //rigidbodyComponent.velocity = movement;
-            if (_currentDirection == "left")
-            {
-                changeState(STATE_WALK_LEFT);
-            }
-
-            if (_currentDirection == "right")
-            {
-                changeState(STATE_WALK_RIGHT);
-            }
-
-        }
-        else if (Input.GetKey("down"))
-        {
-            if (_currentDirection == "left")
-            {
-                changeState(STATE_WALK_LEFT);
-            }
-
-            if (_currentDirection == "right")
-            {
-                changeState(STATE_WALK_RIGHT);
-            }
-            //rigidbodyComponent.velocity = movement;
-        }
-        else if (Input.GetKey("right"))
-        {
-            changeState(STATE_WALK_RIGHT);
-            _currentDirection = "right";
-        }
-        else if (Input.GetKey("left"))
-        {
-
-            changeState(STATE_WALK_LEFT);
-            _currentDirection = "left";
-        }
-        else
-        {
-            if (_currentDirection == "left")
-            {
-                changeState(STATE_IDLE_LEFT);
-            }
-
-            if (_currentDirection == "right")
-            {
-                changeState(STATE_IDLE_RIGHT);
-            }
-
-        }
-
+        reactTime = Random.Range(1,2);
+        akt_time = 0;
+        charge_direction = 0;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        bool damagePlayer = false;
+        stopZombie();
+    }
 
-        // Collision with enemy
-        EnemyScript enemy = collision.gameObject.GetComponent<EnemyScript>();
-        if (enemy != null)
-        {
-            // Kill the enemy
-            HealthScript enemyHealth = enemy.GetComponent<HealthScript>();
-            if (enemyHealth != null) enemyHealth.Damage(enemyHealth.hp);
-
-            damagePlayer = true;
-        }
-
-        // Damage the player
-        if (damagePlayer)
-        {
-            HealthScript playerHealth = this.GetComponent<HealthScript>();
-            if (playerHealth != null) playerHealth.Damage(1);
-        }
+    public void stopZombie()
+    {
+        stop = true;
     }
 
     //--------------------------------------
@@ -224,4 +82,161 @@ public class ZombieScript : MonoBehaviour {
 
         _currentAnimationState = state;
     }
+
+    void Update()
+    {
+        if(stop == true)
+        {
+            akt_time = 0;
+            stop = false;
+            do
+            {
+                charge_direction = (int)Random.Range(0,4);
+            } while (charge_direction == last_direction);
+            last_direction = charge_direction;
+        }
+
+
+
+
+        if(akt_time<reactTime)
+        {
+            akt_time += Time.deltaTime;
+        }
+        else
+        {
+            //charge_direction = 0;
+            if (charge_direction==0)
+            {
+                //RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left);
+                var raycast = Physics2D.RaycastAll(transform.position, Vector2.left,size);
+                if (raycast.Length <= 1)
+                {
+
+                    _currentDirection = "left";
+                    changeState(STATE_WALK_LEFT);
+                    
+                    transform.position += Vector3.left * speed * Time.deltaTime;
+                    
+                }
+                else
+                {
+                    if (raycast[1].collider.name == "Player")
+                    {
+                        HealthScript hp = raycast[1].collider.gameObject.GetComponent<HealthScript>();
+                        hp.Damage(dmg);
+                    }
+                    
+                    if(raycast[1].collider.name != "Shuriken(Clone)")
+                    {
+                        changeState(STATE_IDLE_LEFT);
+                        stop = true;
+                    }
+                    
+                }
+            }
+            if (charge_direction == 1)
+            {
+                var raycast = Physics2D.RaycastAll(transform.position, Vector2.up, size);
+                if (raycast.Length <= 1)
+                {
+                    if (_currentDirection == "left")
+                    {
+                        changeState(STATE_WALK_LEFT);
+                    }
+
+                    if (_currentDirection == "right")
+                    {
+                        changeState(STATE_WALK_RIGHT);
+                    }
+                    transform.position += Vector3.up * speed * Time.deltaTime;
+                }
+                else
+                {
+                    if (raycast[1].collider.name == "Player")
+                    {
+                        HealthScript hp = raycast[1].collider.gameObject.GetComponent<HealthScript>();
+                        hp.Damage(dmg);
+                    }
+                    if (raycast[1].collider.name != "Shuriken(Clone)")
+                    {
+                        if (_currentDirection == "left")
+                        {
+                            changeState(STATE_IDLE_LEFT);
+                        }
+
+                        if (_currentDirection == "right")
+                        {
+                            changeState(STATE_IDLE_RIGHT);
+                        }
+                        stop = true;
+                    }
+                    
+                }
+            }
+            if (charge_direction == 2)
+            {
+                var raycast = Physics2D.RaycastAll(transform.position, Vector2.right, size);
+                if (raycast.Length <= 1)
+                {
+                    changeState(STATE_WALK_RIGHT);
+                    _currentDirection = "right";
+                    transform.position += Vector3.right * speed * Time.deltaTime;
+                }
+                else
+                {
+                    if (raycast[1].collider.name == "Player")
+                    {
+                        HealthScript hp = raycast[1].collider.gameObject.GetComponent<HealthScript>();
+                        hp.Damage(dmg);
+                    }
+                    if (raycast[1].collider.name != "Shuriken(Clone)")
+                    {
+                        changeState(STATE_IDLE_RIGHT);
+                        stop = true;
+                    }
+                }
+            }
+            if (charge_direction == 3)
+            {
+                var raycast = Physics2D.RaycastAll(transform.position, Vector2.down, size);
+                if (raycast.Length <= 1)
+                {
+                    if (_currentDirection == "left")
+                    {
+                        changeState(STATE_WALK_LEFT);
+                    }
+
+                    if (_currentDirection == "right")
+                    {
+                        changeState(STATE_WALK_RIGHT);
+                    }
+                    transform.position += Vector3.down * speed * Time.deltaTime;
+                }
+                else
+                {
+                    if (raycast[1].collider.name == "Player")
+                    {
+                        HealthScript hp = raycast[1].collider.gameObject.GetComponent<HealthScript>();
+                        hp.Damage(dmg);
+                    }
+                    if (raycast[1].collider.name != "Shuriken(Clone)")
+                    {
+                        if (_currentDirection == "left")
+                        {
+                            changeState(STATE_IDLE_LEFT);
+                        }
+
+                        if (_currentDirection == "right")
+                        {
+                            changeState(STATE_IDLE_RIGHT);
+                        }
+                        stop = true;
+                    }
+                }
+            }
+        }        
+
+    }
+
 }
