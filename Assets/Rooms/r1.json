@@ -4,5 +4,9 @@
 	"map": 
 	[0,0,0,0,6,
 	 0,0,0,0,6,
-	 0,0,0,0,6]
+	 0,0,0,0,6],
+	"doorLeft": true,
+	"doorRight": false,
+	"doorTop": true, 
+	"doorBottom": false
  }
