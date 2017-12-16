@@ -13,6 +13,7 @@ public class WeaponScript : MonoBehaviour {
 	/// Projectile prefab for shooting
 	/// </summary>
 	public Transform shotPrefab;
+	private GameObject Player;
 
 	/// <summary>
 	/// Cooldown in seconds between two shots
@@ -28,6 +29,7 @@ public class WeaponScript : MonoBehaviour {
 	void Start()
 	{
 		shootCooldown = 0f;
+		Player = GameObject.FindGameObjectWithTag ("Player");
 	}
 
 	void Update()
@@ -116,7 +118,39 @@ public class WeaponScript : MonoBehaviour {
 			MoveScript move = shotTransform.gameObject.GetComponent<MoveScript>();
 			if (move != null)
 			{
+				//new Vector2((transform.position.x - player.position.x) * speed, (transform.position.y - player.position.y) * speed);
 				move.direction = direction;
+			}
+		}
+	}
+	
+	public void AttackPlayer(bool isEnemy)
+	{
+		//Transform target = GameObject.FindWithTag ("Player").transform;
+		if (CanAttack)
+		{
+			shootCooldown = shootingRate;
+
+			// Create a new shot
+			var shotTransform = Instantiate(shotPrefab) as Transform;
+
+			// Assign position
+			shotTransform.position = transform.position;
+
+			// The is enemy property
+			ShotScript shot = shotTransform.gameObject.GetComponent<ShotScript>();
+			if (shot != null)
+			{
+				shot.isEnemyShot = isEnemy;
+			}
+
+			// Make the weapon shot always towards it
+			MoveScript move = shotTransform.gameObject.GetComponent<MoveScript>();
+			if (move != null)
+			{
+				move.direction = new Vector2((-transform.position.x+Player.transform.position.x)
+					,(-transform.position.y+Player.transform.position.y)).normalized;
+				
 			}
 		}
 	}
