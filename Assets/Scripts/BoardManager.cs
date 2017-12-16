@@ -112,7 +112,7 @@ public class BoardManager : MonoBehaviour {
 		{
 			map.Add(room.map.Skip(i * room.cols).Take(room.cols).ToList());
 		}
-//		int[][] map = room.map;
+
 		this.columns = room.cols;
 		this.rows = room.rows;
 		
