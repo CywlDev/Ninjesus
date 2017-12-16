@@ -519,7 +519,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rows: 0
   columns: 0
-  ghost: {fileID: 1026911355903364, guid: 6037d3912f7504c5b88d9b2640bba21a, type: 2}
+  ghost: {fileID: 1826745825172814, guid: f4d72708367b0cd489e56cdd6ae0b6b1, type: 2}
+  boss: {fileID: 0}
+  jesus: {fileID: 0}
   door: {fileID: 1057483148457192, guid: ea6ceafd4daa247fca57e7949eaabb42, type: 2}
   floorTiles:
   - {fileID: 1013416921013946, guid: b6ed6aae7d46a47f1886be45f7f9a9ba, type: 2}
