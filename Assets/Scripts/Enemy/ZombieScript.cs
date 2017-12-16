@@ -17,6 +17,8 @@ public class ZombieScript : MonoBehaviour {
 
     int last_direction = 0;
 
+    bool stop = true;
+
 
     public float speed = 1.5f;
     public Vector2 direction = new Vector2(-1, 0);
@@ -38,6 +40,7 @@ public class ZombieScript : MonoBehaviour {
         //   speed.x * direction.x,
         //    speed.y * direction.y);
         var charge_direction=0;
+        
         do
         {
             charge_direction = (int)(Random.value - 0.01) * 4;
@@ -45,7 +48,7 @@ public class ZombieScript : MonoBehaviour {
         
         
 
-        if()
+        
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
