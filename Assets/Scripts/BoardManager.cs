@@ -86,6 +86,7 @@ public class BoardManager : MonoBehaviour {
 					case 7:
 						toSpawn = imp;
 						isEnemy = true;
+						break;
 					case 4:
 						toSpawn = key;
 						isKey = true;
