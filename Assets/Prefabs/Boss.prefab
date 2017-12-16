@@ -207,8 +207,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06cc463036b27c2448112130dbab67da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  X_WallOffset: 1.2
-  Y_WallOffset: 1.2
+  X_WallOffset: 1.5
+  Y_WallOffset: 2
   speed: {x: 1.5, y: 1.5}
   direction: {x: -1, y: -1}
 --- !u!212 &212204753378253600
