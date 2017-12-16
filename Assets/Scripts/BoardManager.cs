@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using RoomGen.Enums;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -14,7 +15,6 @@ public class BoardManager : MonoBehaviour {
 
 	public GameObject boss;
 
-	public GameObject jesus; 
 	
 	public GameObject door;
 	
@@ -27,7 +27,7 @@ public class BoardManager : MonoBehaviour {
 	private List<Vector3> gridPositions = new List<Vector3>();
 
 	public List<List<int>> level;
-	private Room currentRoom;
+	public Room currentRoom;
 	
 	private void InitializeGrid()
 	{
@@ -67,9 +67,9 @@ public class BoardManager : MonoBehaviour {
 					case 5:
 						toSpawn = boss;
 						break;
-					case 4:
-						toSpawn = jesus;
-						break;
+//					case 4:
+//						toSpawn = player;
+//						break;
 //					case 3:
 //						toSpawn = items [Random.Range (0, items.Length)];
 //						break;
@@ -188,11 +188,29 @@ public class BoardManager : MonoBehaviour {
 		fillFromMap(level.Select(x => x.ToArray()).ToArray());
 	}
 	
-	public void SetupScene(Room r)
+	public void SetupScene(Room r, Position playerPos)
 	{
 // 		generate random map with rooms
 		
 		LoadRoom(r);
+
+		Vector3 pos = new Vector3((int)(columns / 2),(int)(rows / 2), 0f);
+		if (playerPos == Position.Top)
+		{
+			pos = new Vector3((int)(columns / 2),0, 0f);
+		} else if (playerPos == Position.Down)
+		{
+			pos = new Vector3((int)(columns / 2),rows-1, 0f);
+		} else if (playerPos == Position.Left)
+		{
+			pos = new Vector3(0,(int)(rows / 2), 0f);
+		} else if (playerPos == Position.Right)
+		{
+			pos = new Vector3(columns-1,(int)(rows / 2), 0f);
+		}
+		GameManager.instance.player.transform.SetPositionAndRotation(pos, Quaternion.identity);
+//		GameObject instance = Instantiate (player, new Vector3 (x, rows - y - 1, 0f), Quaternion.identity) as GameObject;
+//		player.transform.SetPositionAndRotation(new Vector3(0f,0f,0f), Quaternion.identity);
 		
 
 //		LoadLevelFromCSV(levelNr);

@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour {
 
 	public int playerLives = 8;
 	private int numOfLevels = 4;
+	
+	public GameObject player; 
 
 	public List<Room> rooms; // global room map
 	
@@ -36,7 +38,7 @@ public class GameManager : MonoBehaviour {
 	void InitGame()
 	{
 		rooms = new List<Room>(); // for new game empty rooms
-		int[][] randLvls = LevelGenerator.Instance.GenerateLevel(1);
+		int[][] randLvls = LevelGenerator.Instance.GenerateLevel(2);
 		List<Room> possibleRooms = new List<Room>();
 		for (int i = 1; i <= numOfLevels; i++)
 		{
@@ -68,6 +70,9 @@ public class GameManager : MonoBehaviour {
 					case RoomType.Key:
 						r = findFittingRoom(randLvls, possibleRooms, x, y);
 						break;
+					case RoomType.Trap:
+						r = findFittingRoom(randLvls, possibleRooms, x, y);
+						break;
 						
 				}
 				if (r != null)
@@ -79,6 +84,8 @@ public class GameManager : MonoBehaviour {
 				Debug.Log(rooms);
 			}
 		}
+		player = Instantiate (player, new Vector3 (7, 7, 0f), Quaternion.identity) as GameObject;
+//		player.transform.SetPositionAndRotation(new Vector3(0f,0f,0f), Quaternion.identity);
 		LoadLevelWithCoords(7, 7);
 	}
 
@@ -103,19 +110,36 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void LoadLevelWithCoords(int x, int y)
+
 	{
-		//TODO think about where to spawn the player!
-		if (x == 7 && y == 7) // special case where player starts in the middle
+		var oldX = boardScript.currentRoom.x;
+		var oldY = boardScript.currentRoom.y;
+		
+		Position playerPos = Position.Center;
+		if (oldX < x) //went right, spawn left
 		{
-			//
+			playerPos = Position.Left;
 		}
+		if (oldX > x) //went left, spawn right
+		{
+			playerPos = Position.Right;
+		}
+		if (oldY < y) //went down, spawn up
+		{
+			playerPos = Position.Top;
+		}
+		if (oldY > y) //went up, spawn down
+		{
+			playerPos = Position.Down;
+		}
+		
 		if (rooms != null)
 		{
 			Room current = rooms.FirstOrDefault(r => r.x == x && r.y == y);
 			
 			if (current != null)
 			{
-				boardScript.SetupScene(current);
+				boardScript.SetupScene(current, playerPos);
 			}	
 		}
 		

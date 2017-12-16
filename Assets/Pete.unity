@@ -193,6 +193,7 @@ MonoBehaviour:
   ghost: {fileID: 1826745825172814, guid: f4d72708367b0cd489e56cdd6ae0b6b1, type: 2}
   boss: {fileID: 0}
   jesus: {fileID: 0}
+  door: {fileID: 0}
   floorTiles:
   - {fileID: 1013416921013946, guid: 3c4dd2888b77a45e690a1036cb2a5961, type: 2}
   wallTiles:
@@ -211,6 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardScript: {fileID: 393937566}
   playerLives: 6
+  rooms: []
 --- !u!4 &393937568
 Transform:
   m_ObjectHideFlags: 0
@@ -237,7 +239,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 410520, guid: 46e8bf4bf645a47e3ae1b60c7e18418c, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 410520, guid: 46e8bf4bf645a47e3ae1b60c7e18418c, type: 2}
       propertyPath: m_LocalPosition.z
