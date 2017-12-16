@@ -167,9 +167,12 @@ public class PlayerScript : MonoBehaviour {
         if (enemy != null)
         {
             // Kill the enemy
+            /*
             HealthScript enemyHealth = enemy.GetComponent<HealthScript>();
             if (enemyHealth != null) enemyHealth.Damage(enemyHealth.hp);
-
+            */
+            ZombieScript zombie = collision.gameObject.GetComponent<ZombieScript>();
+            zombie.stopZombie();
             damagePlayer = true;
         }
 
