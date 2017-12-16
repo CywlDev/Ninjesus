@@ -758,6 +758,7 @@ MonoBehaviour:
   ghost: {fileID: 1826745825172814, guid: f4d72708367b0cd489e56cdd6ae0b6b1, type: 2}
   boss: {fileID: 1064937107394446, guid: 345af5250ab01d34389969923d0bea75, type: 2}
   items: {fileID: 110520, guid: 46e8bf4bf645a47e3ae1b60c7e18418c, type: 2}
+  imp: {fileID: 1941738836491430, guid: a88c99c2e4149b247b023e78a97acff0, type: 2}
   key: {fileID: 110520, guid: 3ec851064d2704c0ebed8b1b680b5c6d, type: 2}
   door: {fileID: 1013948820020268, guid: 8f37c34eac5cb44a5a43358e174676d8, type: 2}
   bossDoor: {fileID: 1095308877803694, guid: 5eceff5cb942e418d8922fc52ce469e7, type: 2}
