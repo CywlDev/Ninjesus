@@ -28,4 +28,13 @@
         PigeonOfImmunity = 2
     }
 
+    public enum Position
+    {
+        Left = 0,
+        Right = 1,
+        Top = 2,
+        Down = 3,
+        Center = 4
+    }
+
 }
