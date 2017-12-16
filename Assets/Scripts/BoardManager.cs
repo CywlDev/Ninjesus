@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +16,7 @@ public class BoardManager : MonoBehaviour {
 	public GameObject boss;
 	public GameObject items;
 	
+	public GameObject imp;
 	public GameObject key;
 	
 	public GameObject door;
@@ -82,6 +83,9 @@ public class BoardManager : MonoBehaviour {
 						toSpawn = boss;
 						isEnemy = true;
 						break;
+					case 7:
+						toSpawn = imp;
+						isEnemy = true;
 					case 4:
 						toSpawn = key;
 						isKey = true;

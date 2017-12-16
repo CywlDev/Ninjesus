@@ -46,7 +46,7 @@ public class BossScript : MonoBehaviour {
 		var raycastBot = Physics2D.RaycastAll(transform.position, Vector2.down,Y_WallOffset);
 		if (raycastLeft.Length >= 1)
 		{ 
-        	if (raycastLeft.Any(x=>x.collider.name == "Wall(Clone)"))
+        	if (raycastLeft.Any(x=>x.collider.name == "Wall(Clone)")||raycastLeft.Any(x=>x.collider.tag == "Door"))
 			{
 				direction = new Vector2(1,direction.y);
 				_currentDirection = "right";
@@ -55,7 +55,7 @@ public class BossScript : MonoBehaviour {
 		}
 		if (raycastRight.Length >=1)
 		{
-			if (raycastRight.Any(x=>x.collider.name == "Wall(Clone)"))
+			if (raycastRight.Any(x=>x.collider.name == "Wall(Clone)")||raycastRight.Any(x=>x.collider.tag == "Door"))
 			{
 				direction = new Vector2(-1,direction.y);
 				_currentDirection = "left";
@@ -64,7 +64,7 @@ public class BossScript : MonoBehaviour {
 		}
 		if (raycastTop.Length >=1)
 		{
-			if (raycastTop.Any(x=>x.collider.name == "Wall(Clone)"))
+			if (raycastTop.Any(x=>x.collider.name == "Wall(Clone)")||raycastTop.Any(x=>x.collider.tag == "Door"))
 			{
 				direction = new Vector2(direction.x,-1);
 				if (_currentDirection == "left")
@@ -80,7 +80,7 @@ public class BossScript : MonoBehaviour {
 		}
 		if (raycastBot.Length >=1)
 		{
-			if (raycastBot.Any(x=>x.collider.name == "Wall(Clone)"))
+			if (raycastBot.Any(x=>x.collider.name == "Wall(Clone)")||raycastBot.Any(x=>x.collider.tag == "Door"))
 			{
 				direction = new Vector2(direction.x,1);
 				if (_currentDirection == "left")

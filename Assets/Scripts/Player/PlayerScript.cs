@@ -77,7 +77,7 @@ public class PlayerScript : MonoBehaviour {
         {
             transform.position += Vector3.down * speed * Time.deltaTime;
         }
-        if(Input.GetKey(KeyCode.D))
+        if(Input.GetKeyUp(KeyCode.D))
         {
             WeaponScript weapon = GetComponent<WeaponScript>();
             if (weapon != null)
@@ -87,7 +87,7 @@ public class PlayerScript : MonoBehaviour {
                 weapon.Attack(false,2);
             }
         }
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKeyUp(KeyCode.W))
         {
             WeaponScript weapon = GetComponent<WeaponScript>();
             if (weapon != null)
@@ -96,7 +96,7 @@ public class PlayerScript : MonoBehaviour {
                 weapon.Attack(false,1);
             }
         }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKeyUp(KeyCode.A))
         {
             WeaponScript weapon = GetComponent<WeaponScript>();
             if (weapon != null)
@@ -105,7 +105,7 @@ public class PlayerScript : MonoBehaviour {
                 weapon.Attack(false,0);
             }
         }
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKeyUp(KeyCode.S))
         {
             WeaponScript weapon = GetComponent<WeaponScript>();
             if (weapon != null)
@@ -180,12 +180,12 @@ public class PlayerScript : MonoBehaviour {
 
         }
         
-        if(Input.GetKey(KeyCode.D))
+        if(Input.GetKeyUp(KeyCode.D))
         {
             changeState(STATE_SHOOT_RIGHT);
             _currentDirection = "right";
         }
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKeyUp(KeyCode.W))
         {
             if (_currentDirection == "left")
             {
@@ -197,12 +197,12 @@ public class PlayerScript : MonoBehaviour {
                 changeState(STATE_SHOOT_RIGHT);
             }
         }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKeyUp(KeyCode.A))
         {
             changeState(STATE_SHOOT_LEFT);
             _currentDirection = "left";
         }
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKeyUp(KeyCode.S))
         {
             if (_currentDirection == "left")
             {
