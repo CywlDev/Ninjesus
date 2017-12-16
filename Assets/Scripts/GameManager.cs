@@ -57,7 +57,9 @@ public class GameManager : MonoBehaviour {
 		List<Room> possibleBossRooms = new List<Room>();
 		for (int i = 1; i <= numOfBossLevels; i++)
 		{
-			possibleBossRooms.Add(ReadJSON.loadBossRoomWithId(i));
+			Room b = ReadJSON.loadBossRoomWithId(i);
+			b.isBoss = true;
+			possibleBossRooms.Add(b);
 		}
 		
 		List<Room> possibleKeyRooms = new List<Room>();
@@ -127,6 +129,11 @@ public class GameManager : MonoBehaviour {
 		this.score += score;
 		scoreText.text = "Score: " + this.score.ToString();
 	}
+
+	public bool isBossRoom(int x, int y)
+	{
+		return rooms.Any(b => b.x == x && b.y == y && b.isBoss);
+	}
 	
 	private Room findFittingRoom(int[][] overmap, List<Room> possibleRooms, int x, int y)
 	{
@@ -153,11 +160,7 @@ public class GameManager : MonoBehaviour {
 		if (!boardScript.Cleared)
 			return;
 		
-		//Destroy all shoooots
-		foreach (var componentsInChild in player.GetComponentsInChildren<ShotScript>())
-		{
-			Destroy(componentsInChild.gameObject);
-		}
+		
 			
 		var oldX = boardScript.currentRoom.x;
 		var oldY = boardScript.currentRoom.y;
@@ -193,6 +196,14 @@ public class GameManager : MonoBehaviour {
 		{
 			Room current = rooms.FirstOrDefault(r => r.x == x && r.y == y);
 			
+			if(current.isBoss && !hasKey)
+				return;
+				
+			//Destroy all shoooots
+			foreach (var componentsInChild in player.GetComponentsInChildren<ShotScript>())
+			{
+				Destroy(componentsInChild.gameObject);
+			}
 			if (current != null)
 			{
 				boardScript.SetupScene(current, playerPos);

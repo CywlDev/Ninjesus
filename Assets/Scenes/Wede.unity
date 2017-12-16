@@ -141,7 +141,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 560934813}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.03, y: 0.9}
   m_AnchorMax: {x: 0.25, y: 0.95}
@@ -373,7 +373,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!1001 &179934228
 Prefab:
@@ -421,6 +421,80 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1bc15c2f9880c4a2bb953c7374446c71, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &409027513
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 409027514}
+  - component: {fileID: 409027516}
+  - component: {fileID: 409027515}
+  m_Layer: 5
+  m_Name: Score
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &409027514
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 409027513}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 560934813}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0.9}
+  m_AnchorMax: {x: 1, y: 0.95}
+  m_AnchoredPosition: {x: -138.3, y: 9.9}
+  m_SizeDelta: {x: 269.5, y: 16.4}
+  m_Pivot: {x: 0.6, y: 0.6}
+--- !u!114 &409027515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 409027513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: b284a6525342f44599e9ce79e37c2d61, type: 3}
+    m_FontSize: 24
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 2
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Score: 0'
+--- !u!222 &409027516
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 409027513}
 --- !u!1 &560934808
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,6 +587,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 409027514}
   - {fileID: 161172178}
   - {fileID: 1881854149}
   m_Father: {fileID: 0}
@@ -681,8 +756,11 @@ MonoBehaviour:
   rows: 0
   columns: 0
   ghost: {fileID: 1826745825172814, guid: f4d72708367b0cd489e56cdd6ae0b6b1, type: 2}
-  boss: {fileID: 1354405793573310, guid: 345af5250ab01d34389969923d0bea75, type: 2}
+  boss: {fileID: 1064937107394446, guid: 345af5250ab01d34389969923d0bea75, type: 2}
+  items: {fileID: 110520, guid: 46e8bf4bf645a47e3ae1b60c7e18418c, type: 2}
+  key: {fileID: 110520, guid: 3ec851064d2704c0ebed8b1b680b5c6d, type: 2}
   door: {fileID: 1013948820020268, guid: 8f37c34eac5cb44a5a43358e174676d8, type: 2}
+  bossDoor: {fileID: 1095308877803694, guid: 5eceff5cb942e418d8922fc52ce469e7, type: 2}
   floorTiles:
   - {fileID: 1013416921013946, guid: b6ed6aae7d46a47f1886be45f7f9a9ba, type: 2}
   wallTiles:
@@ -703,6 +781,8 @@ MonoBehaviour:
     realdoorBottom: 0
     x: 0
     y: 0
+    cleared: 0
+    isBoss: 0
 --- !u!114 &1473323982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -717,8 +797,10 @@ MonoBehaviour:
   boardScript: {fileID: 1473323981}
   playerLives: 6
   player: {fileID: 1557151752233572, guid: 3d958a58535f8444ab6a7f626c567c1f, type: 2}
+  hasKey: 0
   rooms: []
   levelText: {fileID: 161172179}
+  scoreText: {fileID: 409027515}
 --- !u!4 &1473323983
 Transform:
   m_ObjectHideFlags: 0
@@ -835,7 +917,7 @@ RectTransform:
   m_Children:
   - {fileID: 1512626706}
   m_Father: {fileID: 560934813}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

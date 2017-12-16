@@ -233,14 +233,22 @@ public class PlayerScript : MonoBehaviour {
             if (powerUp.health != 0)
             {
                 HealthScript playerHealth = this.GetComponent<HealthScript>();
-                playerHealth.hp = 5;
+                playerHealth.hp = GameManager.instance.playerLives;
                 Destroy(powerUp.gameObject);
             }
 
         }
+        
+        Key keyCollider = otherCollider.gameObject.GetComponent<Key>();
+
+        if (keyCollider != null)
+        {
+            Destroy(keyCollider.gameObject);
+            GameManager.instance.hasKey = true;
+        }
     }
 
-        void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         bool damagePlayer = false;
 
