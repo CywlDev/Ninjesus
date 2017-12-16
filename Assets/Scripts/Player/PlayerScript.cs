@@ -7,6 +7,8 @@ public class PlayerScript : MonoBehaviour {
 
     Animator animator;
 
+    private HealthScript health;
+    
     //animation states - the values in the animator conditions
     const int STATE_IDLE_LEFT = 0;
     const int STATE_IDLE_RIGHT = 2;
@@ -35,6 +37,8 @@ public class PlayerScript : MonoBehaviour {
         //define the animator attached to the player
         animator = this.GetComponent<Animator>();
         original_speed = speed;
+        health = this.GetComponent<HealthScript>();
+        health.hp = GameManager.instance.playerLives;
     }
 
     void Update()
@@ -213,6 +217,13 @@ public class PlayerScript : MonoBehaviour {
             ZombieScript zombie = collision.gameObject.GetComponent<ZombieScript>();
             zombie.stopZombie();
             damagePlayer = true;
+        }
+        
+        Door door = collision.gameObject.GetComponent<Door>();
+        if (door != null)
+        {
+            // Hit a door!
+            GameManager.instance.LoadLevelWithCoords(door.nextX, door.nextY);
         }
 
         // Damage the player

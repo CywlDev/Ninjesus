@@ -12,9 +12,11 @@ public class GameManager : MonoBehaviour {
 
 	public BoardManager boardScript;
 
-	public int playerLives = 6;
-	private int numOfLevels = 1;
+	public int playerLives = 8;
+	private int numOfLevels = 4;
 
+	public List<Room> rooms; // global room map
+	
 	// Use this for initialization
 	void Awake () 
 	{
@@ -33,14 +35,14 @@ public class GameManager : MonoBehaviour {
 	
 	void InitGame()
 	{
+		rooms = new List<Room>(); // for new game empty rooms
 		int[][] randLvls = LevelGenerator.Instance.GenerateLevel(1);
 		List<Room> possibleRooms = new List<Room>();
-		for (int i = 0; i <= numOfLevels; i++)
+		for (int i = 1; i <= numOfLevels; i++)
 		{
 			possibleRooms.Add(ReadJSON.loadRoomWithId(i));
 		}
 		
-		List<Room> rooms = new List<Room>();
 		for (int x = 0; x < randLvls.Length; x++)
 		{
 			for (int y = 0; y < randLvls[x].Length; y++)
@@ -53,9 +55,17 @@ public class GameManager : MonoBehaviour {
 						List<Room> spawnList = new List<Room>();
 						spawnList.Add(ReadJSON.loadRoomWithId(0));
 						r = findFittingRoom(randLvls, spawnList, x, y);
-//						r = ReadJSON.loadRoomWithId(0);
 						break;
 					case RoomType.Normal:
+						r = findFittingRoom(randLvls, possibleRooms, x, y);
+						break;
+					case RoomType.Bonus:
+						r = findFittingRoom(randLvls, possibleRooms, x, y);
+						break;
+					case RoomType.Boss:
+						r = findFittingRoom(randLvls, possibleRooms, x, y);
+						break;
+					case RoomType.Key:
 						r = findFittingRoom(randLvls, possibleRooms, x, y);
 						break;
 						
@@ -69,8 +79,7 @@ public class GameManager : MonoBehaviour {
 				Debug.Log(rooms);
 			}
 		}
-		Room current = rooms.First(r => r.x == 7 && r.y == 7);
-		boardScript.SetupScene(current);
+		LoadLevelWithCoords(7, 7);
 	}
 
 	private Room findFittingRoom(int[][] overmap, List<Room> possibleRooms, int x, int y)
@@ -91,6 +100,25 @@ public class GameManager : MonoBehaviour {
 		finalRoom.realdoorTop = top;
 		finalRoom.realdoorBottom = bottom;
 		return finalRoom;
+	}
+
+	public void LoadLevelWithCoords(int x, int y)
+	{
+		//TODO think about where to spawn the player!
+		if (x == 7 && y == 7) // special case where player starts in the middle
+		{
+			//
+		}
+		if (rooms != null)
+		{
+			Room current = rooms.FirstOrDefault(r => r.x == x && r.y == y);
+			
+			if (current != null)
+			{
+				boardScript.SetupScene(current);
+			}	
+		}
+		
 	}
 
 	public void GameOver()
