@@ -15,9 +15,11 @@ public class BoardManager : MonoBehaviour {
 
 	public GameObject boss;
 	public GameObject items;
-
+	
+	public GameObject key;
 	
 	public GameObject door;
+	public GameObject bossDoor;
 	
 	public GameObject[] floorTiles;
 	public GameObject[] wallTiles;
@@ -31,10 +33,11 @@ public class BoardManager : MonoBehaviour {
 	public Room currentRoom;
 
 	private List<GameObject> aliveEnemies = new List<GameObject>();
+	private GameObject theKey = null;
 
 	public bool Cleared
 	{
-		get { return aliveEnemies.All(x => x == null);  }
+		get { return aliveEnemies.All(x => x == null) && theKey == null;  }
 	}
 	
 	private void InitializeGrid()
@@ -63,6 +66,7 @@ public class BoardManager : MonoBehaviour {
 			{
 				GameObject toSpawn;
 				bool isEnemy = false;
+				bool isKey = false;
 				int tileType = level[y][x]; //for encoding, see google drive
 
 				switch (tileType) {
@@ -78,9 +82,10 @@ public class BoardManager : MonoBehaviour {
 						toSpawn = boss;
 						isEnemy = true;
 						break;
-//					case 4:
-//						toSpawn = player;
-//						break;
+					case 4:
+						toSpawn = key;
+						isKey = true;
+						break;
 					case 15:
 						toSpawn = items;
 						break;
@@ -93,7 +98,7 @@ public class BoardManager : MonoBehaviour {
 				//instanciate the chosen tile
 				if (toSpawn != null)
 				{
-					if (isEnemy && currentRoom.cleared)
+					if ((isEnemy || isKey) && currentRoom.cleared) //dont spawn keys or enemies when clear
 					{
 						break;
 					}
@@ -104,6 +109,10 @@ public class BoardManager : MonoBehaviour {
 					if (isEnemy)
 					{
 						aliveEnemies.Add(instance);
+					}
+					if(isKey)
+					{
+						theKey = instance;
 					}
 				}
 				
@@ -134,16 +143,34 @@ public class BoardManager : MonoBehaviour {
 				{
 					if (x == (columns) / 2 && y == -1 && currentRoom.realdoorBottom) // btm door
 					{
-						GameObject instance = Instantiate(door, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+						GameObject instance;
+						if (GameManager.instance.isBossRoom(this.currentRoom.x, this.currentRoom.y - 1) || currentRoom.isBoss)
+						{
+							instance = Instantiate(bossDoor, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+						}
+						else
+						{
+							instance = Instantiate(door, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+						}
+						 
 						instance.AddComponent<Door>();
 						Door d = instance.GetComponent<Door>();
 						d.nextX = this.currentRoom.x;
 						d.nextY = this.currentRoom.y - 1;
+						
 						instance.transform.SetParent(boardHolder);
 					}
 					else if (x == (columns) / 2 && y == rows && currentRoom.realdoorTop) // top door
 					{
-						GameObject instance = Instantiate(door, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+						GameObject instance;
+						if (GameManager.instance.isBossRoom(this.currentRoom.x, this.currentRoom.y + 1) || currentRoom.isBoss)
+						{
+							instance = Instantiate(bossDoor, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+						}
+						else
+						{
+							instance = Instantiate(door, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+						}
 						instance.AddComponent<Door>();
 						Door d = instance.GetComponent<Door>();
 						d.nextX = this.currentRoom.x;
@@ -152,7 +179,15 @@ public class BoardManager : MonoBehaviour {
 					}
 					else if (y == (rows) / 2 && x == -1 && currentRoom.realDoorLeft) // left door
 					{
-						GameObject instance = Instantiate(door, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+						GameObject instance;
+						if (GameManager.instance.isBossRoom(this.currentRoom.x - 1, this.currentRoom.y)  || currentRoom.isBoss)
+						{ 
+							instance = Instantiate(bossDoor, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+						}
+						else
+						{
+							instance = Instantiate(door, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+						}
 						instance.AddComponent<Door>();
 						Door d = instance.GetComponent<Door>();
 						d.nextX = this.currentRoom.x - 1 ;
@@ -161,7 +196,15 @@ public class BoardManager : MonoBehaviour {
 					}
 					else if (y == (rows) / 2 && x == columns && currentRoom.realdoorRight) // right door
 					{
-						GameObject instance = Instantiate(door, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+						GameObject instance;
+						if (GameManager.instance.isBossRoom(this.currentRoom.x + 1, this.currentRoom.y) || currentRoom.isBoss)
+						{
+							instance = Instantiate(bossDoor, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+						}
+						else
+						{
+							instance = Instantiate(door, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+						}
 						instance.AddComponent<Door>();
 						Door d = instance.GetComponent<Door>();
 						d.nextX = this.currentRoom.x + 1 ;

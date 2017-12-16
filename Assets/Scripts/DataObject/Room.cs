@@ -24,6 +24,7 @@ public class Room
 	public int y;
 	
 	public bool cleared = false;
+	public bool isBoss = false;
 
 	public static Room CreateFromJSON(string jsonString)
 	{
@@ -41,6 +42,8 @@ public class Room
 			doorRight = doorRight,
 			doorTop = doorTop,
 			doorBottom = doorBottom,
+			isBoss = isBoss,
+			cleared = cleared,
 			
 			x = x,
 			y = y
