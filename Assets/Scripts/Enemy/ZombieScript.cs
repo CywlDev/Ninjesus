@@ -122,7 +122,7 @@ public class ZombieScript : MonoBehaviour {
                 }
                 else
                 {
-                    if (raycast[1].collider.name == "Player")
+                    if (raycast[1].collider.CompareTag("Player"))
                     {
                         HealthScript hp = raycast[1].collider.gameObject.GetComponent<HealthScript>();
                         hp.Damage(dmg);
@@ -154,7 +154,7 @@ public class ZombieScript : MonoBehaviour {
                 }
                 else
                 {
-                    if (raycast[1].collider.name == "Player")
+                    if (raycast[1].collider.CompareTag("Player"))
                     {
                         HealthScript hp = raycast[1].collider.gameObject.GetComponent<HealthScript>();
                         hp.Damage(dmg);
@@ -186,7 +186,7 @@ public class ZombieScript : MonoBehaviour {
                 }
                 else
                 {
-                    if (raycast[1].collider.name == "Player")
+                    if (raycast[1].collider.CompareTag("Player"))
                     {
                         HealthScript hp = raycast[1].collider.gameObject.GetComponent<HealthScript>();
                         hp.Damage(dmg);
@@ -216,7 +216,7 @@ public class ZombieScript : MonoBehaviour {
                 }
                 else
                 {
-                    if (raycast[1].collider.name == "Player")
+                    if (raycast[1].collider.CompareTag("Player"))
                     {
                         HealthScript hp = raycast[1].collider.gameObject.GetComponent<HealthScript>();
                         hp.Damage(dmg);
