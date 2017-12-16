@@ -61,17 +61,19 @@ public class BoardManager : MonoBehaviour {
 //						toSpawn = items [Random.Range (0, items.Length)];
 //						break;
 					default:
-						toSpawn = floorTiles [Random.Range (0, floorTiles.Length)];
+						toSpawn = null;
 						break;
 
 				}
 
 				//instanciate the chosen tile
-				GameObject instance =
-					Instantiate (toSpawn, new Vector3 (x, rows - y - 1, 0f), Quaternion.identity) as GameObject;
+				if (toSpawn != null)
+				{
+					GameObject instance = Instantiate (toSpawn, new Vector3 (x, rows - y - 1, 0f), Quaternion.identity) as GameObject;
 
-				//Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
-				instance.transform.SetParent (boardHolder);
+					//Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
+					instance.transform.SetParent (boardHolder);
+				}
 			}
 		}
 		

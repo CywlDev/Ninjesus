@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour {
 
 	public BoardManager boardScript;
 
+	public int playerLives = 6;
+
 	// Use this for initialization
 	void Awake () 
 	{
@@ -26,6 +28,11 @@ public class GameManager : MonoBehaviour {
 	void InitGame()
 	{
 		boardScript.SetupScene();
+	}
+
+	public void GameOver()
+	{
+		enabled = false;
 	}
 	
 	// Update is called once per frame
