@@ -14,6 +14,7 @@ public class BoardManager : MonoBehaviour {
 	public GameObject ghost;
 
 	public GameObject boss;
+	public GameObject items;
 
 	
 	public GameObject door;
@@ -80,9 +81,9 @@ public class BoardManager : MonoBehaviour {
 //					case 4:
 //						toSpawn = player;
 //						break;
-//					case 3:
-//						toSpawn = items [Random.Range (0, items.Length)];
-//						break;
+					case 15:
+						toSpawn = items;
+						break;
 					default:
 						toSpawn = null;
 						break;
