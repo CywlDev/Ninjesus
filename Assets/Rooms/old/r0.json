@@ -1,0 +1,12 @@
+{
+	"cols": 5,
+	"rows": 3,
+	"map": 
+	[0,0,0,0,0,
+	 0,0,0,0,0,
+	 0,0,0,0,0],
+	"doorLeft": true,
+	"doorRight": true,
+	"doorTop": true, 
+	"doorBottom": true
+ }
