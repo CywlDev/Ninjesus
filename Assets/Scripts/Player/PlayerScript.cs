@@ -18,6 +18,11 @@ public class PlayerScript : MonoBehaviour {
     int _currentAnimationState = STATE_IDLE_LEFT;
 
     string _currentDirection = "left";
+    bool powerUpSpeed = false;
+    float aktPowerUpTime = 0;
+    float PowerUpTime = 0;
+
+    float original_speed;
 
 
     public float speed = 1.5f;
@@ -31,6 +36,7 @@ public class PlayerScript : MonoBehaviour {
     {
         //define the animator attached to the player
         animator = this.GetComponent<Animator>();
+        original_speed = speed;
         health = this.GetComponent<HealthScript>();
         health.hp = GameManager.instance.playerLives;
     }
@@ -41,6 +47,16 @@ public class PlayerScript : MonoBehaviour {
         //  movement = new Vector2(
         //   speed.x * direction.x,
         //    speed.y * direction.y);
+        if (powerUpSpeed && aktPowerUpTime < PowerUpTime)
+        {
+            aktPowerUpTime += Time.deltaTime;
+        }
+        else
+        {
+            powerUpSpeed = false;
+            speed = original_speed;
+        }
+
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
@@ -162,7 +178,30 @@ public class PlayerScript : MonoBehaviour {
 
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D otherCollider)
+    {
+        PowerUpScript powerUp = otherCollider.gameObject.GetComponent<PowerUpScript>();
+
+        if (powerUp != null)
+        {
+            if (powerUp.speed != 0)
+            {
+                powerUpSpeed = true;
+                speed = powerUp.speed;
+                PowerUpTime = powerUp.time;
+                Destroy(powerUp.gameObject);
+            }
+            if (powerUp.health != 0)
+            {
+                HealthScript playerHealth = this.GetComponent<HealthScript>();
+                playerHealth.hp = 5;
+                Destroy(powerUp.gameObject);
+            }
+
+        }
+    }
+
+        void OnCollisionEnter2D(Collision2D collision)
     {
         bool damagePlayer = false;
 
@@ -193,6 +232,8 @@ public class PlayerScript : MonoBehaviour {
             HealthScript playerHealth = this.GetComponent<HealthScript>();
             if (playerHealth != null) playerHealth.Damage(1);
         }
+
+        
     }
 
     //--------------------------------------
