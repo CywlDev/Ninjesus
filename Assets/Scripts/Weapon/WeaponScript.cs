@@ -20,6 +20,8 @@ public class WeaponScript : MonoBehaviour {
 	/// </summary>
 	public float shootingRate = 0.25f;
 
+	private Vector2 pos;
+
 	//--------------------------------
 	// 2 - Cooldown
 	//--------------------------------
@@ -30,6 +32,7 @@ public class WeaponScript : MonoBehaviour {
 	{
 		shootCooldown = 0f;
 		Player = GameObject.FindGameObjectWithTag ("Player");
+		
 	}
 
 	void Update()
@@ -55,7 +58,7 @@ public class WeaponScript : MonoBehaviour {
      
      			// Create a new shot
      			var shotTransform = Instantiate(shotPrefab) as Transform;
-			    shotTransform.SetParent(gameObject.transform);
+			    shotTransform.SetParent(GameManager.instance.boardScript.boardHolder);
      			// Assign position
      			shotTransform.position = transform.position;
      
