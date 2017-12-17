@@ -227,6 +227,7 @@ public class PlayerScript : MonoBehaviour {
             {
                 powerUpSpeed = true;
                 speed = powerUp.speed;
+                aktPowerUpTime = 0;
                 PowerUpTime = powerUp.time;
                 Destroy(powerUp.gameObject);
             }
