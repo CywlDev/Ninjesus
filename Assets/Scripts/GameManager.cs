@@ -14,9 +14,9 @@ public class GameManager : MonoBehaviour {
 
 	public BoardManager boardScript;
 
-	public int playerLives = 15;
+	public int playerLives = 18;
 	//limit num of levels here (pls) dirty and fast
-	private int numOfLevels = 15;
+	private int numOfLevels = 30;
 	private int numOfBossLevels = 2;
 	private int numOfKeyLevels = 1;
 	
@@ -27,9 +27,12 @@ public class GameManager : MonoBehaviour {
 	public List<Room> rooms; // global room map
 	public Text levelText;
 
-	private int score;
+	private int score = 0;
 	public Text scoreText;
 	public GameObject gameOverImg;
+	public GameObject winningImg;
+
+	public int difficulty = 2;
 	
 	// Use this for initialization
 	void Awake () 
@@ -50,7 +53,7 @@ public class GameManager : MonoBehaviour {
 	{
 		boardScript = GetComponent<BoardManager>();
 		rooms = new List<Room>(); // for new game empty rooms
-		int[][] randLvls = LevelGenerator.Instance.GenerateLevel(1);
+		int[][] randLvls = LevelGenerator.Instance.GenerateLevel(difficulty);
 		List<Room> possibleRooms = new List<Room>();
 		for (int i = 1; i <= numOfLevels; i++)
 		{
@@ -119,7 +122,8 @@ public class GameManager : MonoBehaviour {
 		player.GetComponent<SpriteRenderer>().color = new Color(1f,1f, 1f); //reset color of sprite renderer
 		HealthScript hs = player.GetComponent<HealthScript>();
 		hs.hp = playerLives;
-		score = 0;
+		addScore(0);
+		
 		hasKey = false;
 		
 		LoadLevelWithCoords(7, 7, true);
@@ -138,7 +142,7 @@ public class GameManager : MonoBehaviour {
 	
 	public void addScore(int score)
 	{
-		this.score += score;
+		this.score += score * difficulty;
 		scoreText.text = "Score: " + this.score.ToString();
 	}
 
@@ -225,10 +229,29 @@ public class GameManager : MonoBehaviour {
 		
 	}
 
+	public void Winning()
+	{
+		if (enabled)
+		{
+			if (difficulty < 7)
+			{
+				difficulty++;
+			}
+			enabled = false;
+			winningImg.SetActive(true);
+			Invoke("HideGameOver", 5f);
+		}
+	}
+	
 	public void GameOver()
 	{
 		if (enabled)
 		{
+			score = 0;
+			if (difficulty > 2)
+			{
+				difficulty--;
+			}
 			enabled = false;
 			gameOverImg.SetActive(true);
 			Invoke("HideGameOver", 5f);
@@ -243,6 +266,7 @@ public class GameManager : MonoBehaviour {
 	public void HideGameOver()
 	{
 		gameOverImg.SetActive(false);
+		winningImg.SetActive(false);
 		this.boardScript.aliveEnemies = new List<GameObject>();
         this.boardScript.theKey = null;
         InitGame();

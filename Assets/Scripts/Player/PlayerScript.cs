@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -234,7 +235,7 @@ public class PlayerScript : MonoBehaviour {
             if (powerUp.health != 0)
             {
                 HealthScript playerHealth = this.GetComponent<HealthScript>();
-                playerHealth.hp = GameManager.instance.playerLives;
+                playerHealth.hp = Math.Min(GameManager.instance.playerLives, playerHealth.hp + 1);
                 Destroy(powerUp.gameObject);
             }
 

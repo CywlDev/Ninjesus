@@ -41,7 +41,7 @@ public class ZombieScript : MonoBehaviour {
     void Start()
     {
         animator = this.GetComponent<Animator>();
-        reactTime = 2;
+        reactTime = 0.75;
         akt_time = 0;
         charge_direction = 0;
         player=GameObject.FindGameObjectWithTag("Player");
@@ -52,7 +52,7 @@ public class ZombieScript : MonoBehaviour {
     {
         if (collision.gameObject.transform.CompareTag("Wall") && noaggro<=0)
         {
-            noaggro = 10;
+            noaggro = 4;
         }
         stopZombie();
     }
@@ -125,7 +125,7 @@ public class ZombieScript : MonoBehaviour {
         {
             if (noaggro <= 0)
             {
-                if (Vector3.Distance(transform.position, player.transform.position) <= 4)
+                if (Vector3.Distance(transform.position, player.transform.position) <= 6)
                 {
 
                     if (!Physics.Linecast(player.transform.position, transform.position, ~(1 << 8))
