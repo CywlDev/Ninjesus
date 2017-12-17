@@ -6,7 +6,11 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
 
-	public AudioSource efxSource;
+	public AudioSource jesusSource;
+	public AudioSource enemySource;
+	public AudioSource bossSource;
+	public AudioSource collSource;
+	public AudioSource hitSource;
 
 	public AudioSource musicSource;
 
@@ -28,20 +32,53 @@ public class SoundManager : MonoBehaviour
 
 	}
 
-	public void PlaySingle(AudioClip clip)
+	public void PlaySingleJesus(AudioClip clip)
 	{
-		efxSource.clip = clip;
-		efxSource.Play();
+		jesusSource.clip = clip;
+		jesusSource.Play();
+	}
+	
+	public void PlaySingleEnemy(AudioClip clip)
+	{
+		if (!enemySource.isPlaying)
+		{
+			enemySource.clip = clip;
+			enemySource.Play();
+		}
+		
+	}
+	
+	public void PlaySingleBoss(AudioClip clip)
+	{
+		if (!bossSource.isPlaying)
+		{
+			bossSource.clip = clip;
+			bossSource.volume = 0.5f;
+			bossSource.Play();
+		}
+		
 	}
 
-	public void RandomizeSfx(params AudioClip[] clips)
+	public void PlaySingleColl(AudioClip clip)
 	{
-		int randomIndex = Random.Range(0, clips.Length);
-		float randomPitch = Random.Range(lowPitchRange, highPitchRange);
-
-		efxSource.pitch = randomPitch;
-		efxSource.clip = clips[randomIndex];
-		efxSource.Play();
+		collSource.clip = clip;
+		collSource.Play();
 	}
+	
+	public void PlaySingleHit(AudioClip clip)
+	{
+		hitSource.clip = clip;
+		hitSource.Play();
+	}
+
+//	public void RandomizeSfx(params AudioClip[] clips)
+//	{
+//		int randomIndex = Random.Range(0, clips.Length);
+//		float randomPitch = Random.Range(lowPitchRange, highPitchRange);
+//
+//		efxSource.pitch = randomPitch;
+//		efxSource.clip = clips[randomIndex];
+//		efxSource.Play();
+//	}
 	
 }

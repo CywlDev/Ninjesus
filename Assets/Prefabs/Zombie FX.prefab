@@ -174,6 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b481b4f10bd49a44081b1fcddf34af81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AggroSound: {fileID: 8300000, guid: 5c18f732e8343ba48a07e6c85ee64e08, type: 3}
   dmg: 1
   speed: 5
   size: 0.5

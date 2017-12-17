@@ -196,6 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3.5
   direction: {x: -1, y: 0}
+  throwSound: {fileID: 8300000, guid: db3e593d3ec00c4499856a672eaa0900, type: 3}
 --- !u!114 &114155208401224294
 MonoBehaviour:
   m_ObjectHideFlags: 1

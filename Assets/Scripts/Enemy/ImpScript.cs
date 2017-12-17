@@ -6,7 +6,7 @@ public class ImpScript : MonoBehaviour
 {
 
 	private WeaponScript[] weapons;
-
+	public AudioClip fireball;
 	void Awake()
 	{
 		// Retrieve the weapon only once
@@ -20,6 +20,7 @@ public class ImpScript : MonoBehaviour
 			// Auto-fire
 			if (weapon != null && weapon.CanAttack)
 			{
+				SoundManager.instance.PlaySingleBoss(fireball); 
 				weapon.AttackPlayer(true);
 			}
 		}

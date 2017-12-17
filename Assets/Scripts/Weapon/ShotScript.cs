@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShotScript : MonoBehaviour {
 
 	// 1 - Designer variables
-
+	public AudioClip collSound;
 	/// <summary>
 	/// Damage inflicted
 	/// </summary>
@@ -27,21 +27,25 @@ public class ShotScript : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D otherCollider)
 	{
 		// Is this a shot?
+		
 		ShotScript shot = otherCollider.gameObject.GetComponent<ShotScript>();
 		if(shot != null)
 		{
 			if(shot.isEnemyShot && !isEnemyShot){
 				shot.destroy();
 				destroy();
-				
 			}
+			
+				
 		}
 		if (otherCollider.CompareTag("Wall"))
 		{
+			SoundManager.instance.PlaySingleColl(collSound);
 			destroy();
 		}
 		if (otherCollider.CompareTag("Door"))
 		{
+			SoundManager.instance.PlaySingleColl(collSound);
 			destroy();
 		}
 		
