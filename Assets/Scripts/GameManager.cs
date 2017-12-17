@@ -105,6 +105,7 @@ public class GameManager : MonoBehaviour {
 				{
 					r.x = x;
 					r.y = y;
+					r.cleared = false;
 					rooms.Add(r);
 				}
 				Debug.Log(rooms);
@@ -121,7 +122,7 @@ public class GameManager : MonoBehaviour {
 		score = 0;
 		hasKey = false;
 		
-		LoadLevelWithCoords(7, 7);
+		LoadLevelWithCoords(7, 7, true);
 		enabled = true;
 	}
 
@@ -166,42 +167,43 @@ public class GameManager : MonoBehaviour {
 		return finalRoom;
 	}
 
-	public void LoadLevelWithCoords(int x, int y)
+	public void LoadLevelWithCoords(int x, int y, bool isRestart = false)
 	{
-		if (!boardScript.Cleared)
-			return;
-		
-		
-			
-		var oldX = boardScript.currentRoom.x;
-		var oldY = boardScript.currentRoom.y;
-		
-		//set room where youre coming from to cleared
 
-		var oldRoom = rooms.FirstOrDefault(r => r.x == oldX && r.y == oldY);
-		if (oldRoom != null)
-		{
-			oldRoom.cleared = true;
-		}
-		
-		
 		Position playerPos = Position.Center;
-		if (oldX < x) //went right, spawn left
+		if (!isRestart)
 		{
-			playerPos = Position.Left;
+			if (!boardScript.Cleared)
+				return;
+			var oldX = boardScript.currentRoom.x;
+			var oldY = boardScript.currentRoom.y;
+		
+			//set room where youre coming from to cleared
+
+			var oldRoom = rooms.FirstOrDefault(r => r.x == oldX && r.y == oldY);
+			
+			if (oldRoom != null)
+			{
+				oldRoom.cleared = true;
+			}
+			if (oldX < x) //went right, spawn left
+			{
+				playerPos = Position.Left;
+			}
+			if (oldX > x) //went left, spawn right
+			{
+				playerPos = Position.Right;
+			}
+			if (oldY < y) //went down, spawn up
+			{
+				playerPos = Position.Top;
+			}
+			if (oldY > y) //went up, spawn down
+			{
+				playerPos = Position.Down;
+			}
 		}
-		if (oldX > x) //went left, spawn right
-		{
-			playerPos = Position.Right;
-		}
-		if (oldY < y) //went down, spawn up
-		{
-			playerPos = Position.Top;
-		}
-		if (oldY > y) //went up, spawn down
-		{
-			playerPos = Position.Down;
-		}
+			
 		
 		if (rooms != null)
 		{
