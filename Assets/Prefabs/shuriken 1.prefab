@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb0dc825a8544fc4c885e42bf31232c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collSound: {fileID: 8300000, guid: e03b1555ff3a4df4cb31e3a96b5310c9, type: 3}
   damage: 1
   isEnemyShot: 0
 --- !u!114 &114863891579233054

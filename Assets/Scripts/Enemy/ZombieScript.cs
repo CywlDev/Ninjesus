@@ -20,6 +20,7 @@ public class ZombieScript : MonoBehaviour {
 
     string _currentDirection = "left";
 
+    public AudioClip AggroSound;
 
 
     int last_direction = 3;
@@ -146,7 +147,7 @@ public class ZombieScript : MonoBehaviour {
                             changeState(STATE_WALK_RIGHT);
                             _currentDirection = "right";
                         }
-                        //Debug.Log(hit.transform.name);
+                        SoundManager.instance.PlaySingleEnemy(AggroSound);
                     
                         step = speed * Time.deltaTime /2* addSpeed;
                         transform.position = Vector3.MoveTowards(transform.position, player.transform.position, step);

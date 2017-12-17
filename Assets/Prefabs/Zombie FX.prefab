@@ -150,7 +150,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5005b178000c94a458227930aef7b802, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 2
   isEnemy: 1
 --- !u!114 &114714477682895142
 MonoBehaviour:
@@ -174,6 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b481b4f10bd49a44081b1fcddf34af81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AggroSound: {fileID: 8300000, guid: 5c18f732e8343ba48a07e6c85ee64e08, type: 3}
   dmg: 1
   speed: 5
   size: 0.5

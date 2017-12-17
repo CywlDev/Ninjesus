@@ -15,6 +15,7 @@ public class HealthScript : MonoBehaviour {
 	/// </summary>
 	public bool isEnemy = true;
 
+	public AudioClip hit;
 	
 	
 	private void DmgColor()
@@ -82,7 +83,8 @@ public class HealthScript : MonoBehaviour {
 			if (shot.isEnemyShot != isEnemy)
 			{
 				Damage(shot.damage);
-
+				
+				SoundManager.instance.PlaySingleHit(hit);
 				// Destroy the shot
 				Destroy(shot.gameObject, 0.1f); // Remember to always target the game object, otherwise you will just remove the script
 			}

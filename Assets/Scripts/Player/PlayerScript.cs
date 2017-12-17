@@ -35,6 +35,8 @@ public class PlayerScript : MonoBehaviour {
     private Vector2 movement;
     private Rigidbody2D rigidbodyComponent;
 
+    public AudioClip throwSound;
+
     // Use this for initialization
     void Start()
     {
@@ -84,7 +86,7 @@ public class PlayerScript : MonoBehaviour {
             if (weapon != null)
             {
                 // false because the player is not an enemy
-                
+               SoundManager.instance.PlaySingleJesus(throwSound);
                 weapon.Attack(false,2);
             }
         }
@@ -93,7 +95,7 @@ public class PlayerScript : MonoBehaviour {
             WeaponScript weapon = GetComponent<WeaponScript>();
             if (weapon != null)
             {
-                // false because the player is not an enemy
+                SoundManager.instance.PlaySingleJesus(throwSound);
                 weapon.Attack(false,1);
             }
         }
@@ -102,7 +104,7 @@ public class PlayerScript : MonoBehaviour {
             WeaponScript weapon = GetComponent<WeaponScript>();
             if (weapon != null)
             {
-                // false because the player is not an enemy
+                SoundManager.instance.PlaySingleJesus(throwSound);
                 weapon.Attack(false,0);
             }
         }
@@ -111,7 +113,7 @@ public class PlayerScript : MonoBehaviour {
             WeaponScript weapon = GetComponent<WeaponScript>();
             if (weapon != null)
             {
-                // false because the player is not an enemy
+                SoundManager.instance.PlaySingleJesus(throwSound);
                 weapon.Attack(false,3);
             }
         }
