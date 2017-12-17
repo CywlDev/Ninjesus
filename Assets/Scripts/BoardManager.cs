@@ -70,6 +70,7 @@ public class BoardManager : MonoBehaviour {
 				GameObject toSpawn;
 				bool isEnemy = false;
 				bool isKey = false;
+				bool isItem = false;
 				int tileType = level[y][x]; //for encoding, see google drive
 
 				switch (tileType) {
@@ -95,9 +96,11 @@ public class BoardManager : MonoBehaviour {
 						break;
 					case 15:
 						toSpawn = items;
+						isItem = true;
 						break;
 					case 16:
 						toSpawn = bolt;
+						isItem = true;
 						break;
 					default:
 						toSpawn = null;
@@ -108,7 +111,7 @@ public class BoardManager : MonoBehaviour {
 				//instanciate the chosen tile
 				if (toSpawn != null)
 				{
-					if ((isEnemy || isKey) && currentRoom.cleared) //dont spawn keys or enemies when clear
+					if ((isEnemy || isKey || isItem) && currentRoom.cleared) //dont spawn keys or enemies when clear
 					{
 						break;
 					}
