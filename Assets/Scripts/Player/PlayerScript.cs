@@ -267,7 +267,10 @@ public class PlayerScript : MonoBehaviour {
             if (enemyHealth != null) enemyHealth.Damage(0);
             */
             ZombieScript zombie = collision.gameObject.GetComponent<ZombieScript>();
-            zombie.stopZombie();
+            if (zombie != null)
+            {
+                zombie.stopZombie();
+            }
             damagePlayer = true;
         }
         
