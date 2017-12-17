@@ -14,12 +14,13 @@ public class GameManager : MonoBehaviour {
 
 	public BoardManager boardScript;
 
-	public int playerLives = 8;
+	public int playerLives = 15;
 	//limit num of levels here (pls) dirty and fast
 	private int numOfLevels = 15;
 	private int numOfBossLevels = 2;
 	private int numOfKeyLevels = 1;
 	
+	public GameObject playerPrefab;
 	public GameObject player;
 	public bool hasKey = false;
 
@@ -41,13 +42,13 @@ public class GameManager : MonoBehaviour {
 
 		DontDestroyOnLoad (gameObject);
 
-		boardScript = GetComponent<BoardManager>();
 		InitGame();
 	}
 	
 	
 	void InitGame()
 	{
+		boardScript = GetComponent<BoardManager>();
 		rooms = new List<Room>(); // for new game empty rooms
 		int[][] randLvls = LevelGenerator.Instance.GenerateLevel(1);
 		List<Room> possibleRooms = new List<Room>();
@@ -109,13 +110,19 @@ public class GameManager : MonoBehaviour {
 				Debug.Log(rooms);
 			}
 		}
-		player = Instantiate (player, new Vector3 (7, 7, 0f), Quaternion.identity) as GameObject;
+		if (player == null)
+		{
+			player = Instantiate (playerPrefab, new Vector3 (7, 7, 0f), Quaternion.identity) as GameObject;
+		}
+		
 		player.GetComponent<SpriteRenderer>().color = new Color(1f,1f, 1f); //reset color of sprite renderer
 		HealthScript hs = player.GetComponent<HealthScript>();
 		hs.hp = playerLives;
 		score = 0;
-
+		hasKey = false;
+		
 		LoadLevelWithCoords(7, 7);
+		enabled = true;
 	}
 
 	private string getHealthString(int lives)
@@ -218,15 +225,25 @@ public class GameManager : MonoBehaviour {
 
 	public void GameOver()
 	{
-//		enabled = false;
-//		gameOverImg.SetActive(true);
+		if (enabled)
+		{
+			enabled = false;
+			gameOverImg.SetActive(true);
+			Invoke("HideGameOver", 5f);
+		}
 		
 //		Scene loadedLevel = SceneManager.GetActiveScene ();
 //		player.transform.SetPositionAndRotation(new Vector3(0f,0f,0f), Quaternion.identity);
 //		SceneManager.LoadScene (loadedLevel.buildIndex);
+		
+	}
+
+	public void HideGameOver()
+	{
+		gameOverImg.SetActive(false);
 		this.boardScript.aliveEnemies = new List<GameObject>();
-		this.boardScript.theKey = null;
-		InitGame();
+        this.boardScript.theKey = null;
+        InitGame();
 	}
 	
 	// Update is called once per frame

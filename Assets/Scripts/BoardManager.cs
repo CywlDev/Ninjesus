@@ -15,6 +15,7 @@ public class BoardManager : MonoBehaviour {
 
 	public GameObject boss;
 	public GameObject items;
+	public GameObject bolt;
 	
 	public GameObject imp;
 	public GameObject key;
@@ -94,6 +95,9 @@ public class BoardManager : MonoBehaviour {
 						break;
 					case 15:
 						toSpawn = items;
+						break;
+					case 16:
+						toSpawn = bolt;
 						break;
 					default:
 						toSpawn = null;
