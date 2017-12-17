@@ -28,7 +28,7 @@ public class BoardManager : MonoBehaviour {
 	
 	public GameObject[] enemies;
 
-	private Transform boardHolder;
+	public Transform boardHolder;
 	private List<Vector3> gridPositions = new List<Vector3>();
 
 	public List<List<int>> level;
