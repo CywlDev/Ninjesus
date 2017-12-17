@@ -31,8 +31,9 @@ public class GameManager : MonoBehaviour {
 	public Text scoreText;
 	public GameObject gameOverImg;
 	public GameObject winningImg;
+	public GameObject hasKeyImg;
 
-	public int difficulty = 2;
+	public int difficulty = 1;
 	
 	// Use this for initialization
 	void Awake () 
@@ -265,6 +266,7 @@ public class GameManager : MonoBehaviour {
 
 	public void HideGameOver()
 	{
+		hasKeyImg.SetActive(false);
 		gameOverImg.SetActive(false);
 		winningImg.SetActive(false);
 		this.boardScript.aliveEnemies = new List<GameObject>();

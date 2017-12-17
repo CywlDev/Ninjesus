@@ -246,6 +246,7 @@ public class PlayerScript : MonoBehaviour {
         if (keyCollider != null)
         {
             Destroy(keyCollider.gameObject);
+            GameManager.instance.hasKeyImg.SetActive(true);
             GameManager.instance.hasKey = true;
         }
     }
