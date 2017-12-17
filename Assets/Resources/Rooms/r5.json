@@ -15,7 +15,7 @@
 	
 	 ],
 	"doorLeft": true,
-	"doorRight":false,
-	"doorTop":false,
+	"doorRight":true,
+	"doorTop":true,
 	"doorBottom":true
  }
