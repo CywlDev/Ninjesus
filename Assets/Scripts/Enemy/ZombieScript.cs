@@ -1,11 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ZombieScript : MonoBehaviour {
 
     Animator animator;
-
+    private Vector2 direction;
+    private GameObject player;
+    private RaycastHit hit;
+    private float step;
     //animation states - the values in the animator conditions
     const int STATE_IDLE_LEFT = 0;
     const int STATE_IDLE_RIGHT = 2;
@@ -18,7 +23,8 @@ public class ZombieScript : MonoBehaviour {
 
 
     int last_direction = 3;
-
+    private float noaggro = 0;
+    private float aggro = 0;
     bool stop = true;
     public int dmg = 1;
 
@@ -28,7 +34,7 @@ public class ZombieScript : MonoBehaviour {
     private double reactTime;
     private int charge_direction;
     public float size = 0.5f;
-
+    private int addSpeed;
     private Rigidbody2D rigidbodyComponent;
 
     // Use this for initialization
@@ -38,10 +44,16 @@ public class ZombieScript : MonoBehaviour {
         reactTime = Random.Range(1,2);
         akt_time = 0;
         charge_direction = 0;
+        player=GameObject.FindGameObjectWithTag("Player");
+        addSpeed = Random.Range(1, 2);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.transform.CompareTag("Wall") && noaggro<=0)
+        {
+            noaggro = 10;
+        }
         stopZombie();
     }
 
@@ -86,6 +98,47 @@ public class ZombieScript : MonoBehaviour {
 
     void Update()
     {
+
+
+        if (noaggro <= 0)
+        {
+            if (Vector3.Distance(transform.position, player.transform.position) <= 4)
+            {
+
+                if (!Physics.Linecast(player.transform.position, transform.position, ~(1 << 8))
+                ) //0nly layer 8 ,0x00000100
+                {
+                    
+                    direction = new Vector2((player.transform.position.x - transform.position.x),
+                        (player.transform.position.y - transform.position.y));
+
+                    if (player.transform.position.x < transform.position.x)
+                    {
+
+                        changeState(STATE_WALK_LEFT);
+                        _currentDirection = "left";
+                    }
+                    else if(player.transform.position.x > transform.position.x)
+                    {
+                        changeState(STATE_WALK_RIGHT);
+                        _currentDirection = "right";
+                    }
+                    //Debug.Log(hit.transform.name);
+                    
+                    step = speed * Time.deltaTime /2* addSpeed;
+                    transform.position = Vector3.MoveTowards(transform.position, player.transform.position, step);
+
+                    return;
+
+
+
+                }
+            }
+
+            //Here Call any function U want Like Shoot at here or something
+        }
+
+        
         if(stop == true)
         {
             akt_time = 0;
@@ -122,7 +175,7 @@ public class ZombieScript : MonoBehaviour {
                 }
                 else
                 {
-                    if (raycast[1].collider.CompareTag("Player"))
+                    if (raycast[1].collider.name == "Player")
                     {
                         HealthScript hp = raycast[1].collider.gameObject.GetComponent<HealthScript>();
                         hp.Damage(dmg);
@@ -154,7 +207,7 @@ public class ZombieScript : MonoBehaviour {
                 }
                 else
                 {
-                    if (raycast[1].collider.CompareTag("Player"))
+                    if (raycast[1].collider.name == "Player")
                     {
                         HealthScript hp = raycast[1].collider.gameObject.GetComponent<HealthScript>();
                         hp.Damage(dmg);
@@ -186,7 +239,7 @@ public class ZombieScript : MonoBehaviour {
                 }
                 else
                 {
-                    if (raycast[1].collider.CompareTag("Player"))
+                    if (raycast[1].collider.name == "Player")
                     {
                         HealthScript hp = raycast[1].collider.gameObject.GetComponent<HealthScript>();
                         hp.Damage(dmg);
@@ -216,7 +269,7 @@ public class ZombieScript : MonoBehaviour {
                 }
                 else
                 {
-                    if (raycast[1].collider.CompareTag("Player"))
+                    if (raycast[1].collider.name == "Player")
                     {
                         HealthScript hp = raycast[1].collider.gameObject.GetComponent<HealthScript>();
                         hp.Damage(dmg);
@@ -236,6 +289,9 @@ public class ZombieScript : MonoBehaviour {
                     }
                 }
             }
+
+            noaggro--;
+
         }        
 
     }

@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Soda
   - Door
+  - Wall
   layers:
   - Default
   - TransparentFX
