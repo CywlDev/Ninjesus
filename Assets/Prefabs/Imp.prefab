@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6dafe3fc809f5c47a9866fd32f070f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireball: {fileID: 0}
+  fireball: {fileID: 8300000, guid: 756e34da326847a49a7e7a0ed4bf6e71, type: 3}
 --- !u!114 &114535148626776706
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -162,6 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 1
   isEnemy: 1
+  hit: {fileID: 8300000, guid: 05a41a371a0f3664ba1e347cfaba6508, type: 3}
 --- !u!212 &212056192359595546
 SpriteRenderer:
   m_ObjectHideFlags: 1

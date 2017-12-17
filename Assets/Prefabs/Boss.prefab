@@ -197,6 +197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 30
   isEnemy: 1
+  hit: {fileID: 8300000, guid: 05a41a371a0f3664ba1e347cfaba6508, type: 3}
 --- !u!114 &114983410536637752
 MonoBehaviour:
   m_ObjectHideFlags: 1
