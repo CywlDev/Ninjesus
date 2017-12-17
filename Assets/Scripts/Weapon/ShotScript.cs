@@ -49,7 +49,7 @@ public class ShotScript : MonoBehaviour {
 
 	void destroy()
 	{
-		Destroy(gameObject);
+		Destroy(gameObject, 0.1f);
 	}
 
 }
