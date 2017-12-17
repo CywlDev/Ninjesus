@@ -32,6 +32,11 @@ public class BossScript : MonoBehaviour {
 	private Vector2 movement;
 	private Rigidbody2D rigidbodyComponent;
 
+	void Start()
+	{
+		animator = this.GetComponent<Animator>();
+	}
+
 	void Update()
 	{
 		// 2 - Movement
@@ -120,10 +125,7 @@ public class BossScript : MonoBehaviour {
 
 			case STATE_RIGHT:
 				animator.SetInteger("state", STATE_RIGHT);
-				break;
-
-                
-            
+				break; 
 
 		}
 

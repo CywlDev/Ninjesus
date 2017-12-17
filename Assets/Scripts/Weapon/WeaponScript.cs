@@ -73,19 +73,19 @@ public class WeaponScript : MonoBehaviour {
                      if (direction == 2)
                      {
      	                
-                         move.direction = this.transform.right; // towards in 2D space is the right of the sprite
+                         move.direction = new Vector2(1,0); // towards in 2D space is the right of the sprite
                      }
                      if (direction == 0)
                      {
-                         move.direction = this.transform.right + Vector3.left*2; // towards in 2D space is the left of the sprite
+                         move.direction = new Vector2(-1,0);; // towards in 2D space is the left of the sprite
                      }
                      if (direction == 1)
                      {
-                         move.direction = this.transform.right + Vector3.left + Vector3.up; // towards in 2D space is the up of the sprite
+                         move.direction = new Vector2(0,1); // towards in 2D space is the up of the sprite
                      }
                      if (direction == 3)
                      {
-                         move.direction = this.transform.right + Vector3.left + Vector3.down; // towards in 2D space is the down of the sprite
+                         move.direction = new Vector2(0,-1); // towards in 2D space is the down of the sprite
                      }
                  }
      		}
@@ -95,7 +95,7 @@ public class WeaponScript : MonoBehaviour {
 	{
 		if (direction == new Vector2(0, 0))
 		{
-			direction = new Vector2(1,0);
+			direction = new Vector2(0,1);
 		}
 		if (CanAttack)
 		{
