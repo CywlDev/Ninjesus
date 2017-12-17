@@ -40,6 +40,8 @@ public class HealthScript : MonoBehaviour {
 
 		}
 		
+		
+		
 		ParticleSystem ps = GetComponentInChildren<ParticleSystem>();
 		if (ps != null)
 		{
@@ -48,6 +50,14 @@ public class HealthScript : MonoBehaviour {
 		
 		if (hp <= 0)
 		{
+			var boss = this.GetComponentInParent(typeof(BossScript));
+			if (boss != null)
+			{
+				GameManager.instance.Winning();
+				return;
+			}
+			
+			
 			// Dead!
 			if (obj != null)
 			{
