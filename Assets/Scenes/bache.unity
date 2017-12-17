@@ -288,7 +288,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.9}
   m_AnchorMax: {x: 1, y: 0.95}
-  m_AnchoredPosition: {x: -138.3, y: 9.9}
+  m_AnchoredPosition: {x: -138.29999, y: 9.900024}
   m_SizeDelta: {x: 269.5, y: 16.4}
   m_Pivot: {x: 0.6, y: 0.6}
 --- !u!114 &690595344
@@ -426,7 +426,7 @@ RectTransform:
   - {fileID: 1679619669}
   - {fileID: 222575859}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -528,6 +528,7 @@ MonoBehaviour:
   ghost: {fileID: 1826745825172814, guid: f4d72708367b0cd489e56cdd6ae0b6b1, type: 2}
   boss: {fileID: 1064937107394446, guid: 345af5250ab01d34389969923d0bea75, type: 2}
   items: {fileID: 110520, guid: 46e8bf4bf645a47e3ae1b60c7e18418c, type: 2}
+  bolt: {fileID: 0}
   imp: {fileID: 1941738836491430, guid: a88c99c2e4149b247b023e78a97acff0, type: 2}
   key: {fileID: 110520, guid: 3ec851064d2704c0ebed8b1b680b5c6d, type: 2}
   door: {fileID: 1013948820020268, guid: 8f37c34eac5cb44a5a43358e174676d8, type: 2}
@@ -536,8 +537,10 @@ MonoBehaviour:
   - {fileID: 1013416921013946, guid: b6ed6aae7d46a47f1886be45f7f9a9ba, type: 2}
   wallTiles:
   - {fileID: 1325517956913986, guid: 0bc9bd78b926b4877b662470df1685f8, type: 2}
+  obstacleTiles: []
   enemies:
   - {fileID: 110520, guid: 46e8bf4bf645a47e3ae1b60c7e18418c, type: 2}
+  boardHolder: {fileID: 0}
   currentRoom:
     rows: 0
     cols: 0
@@ -554,6 +557,8 @@ MonoBehaviour:
     y: 0
     cleared: 0
     isBoss: 0
+  aliveEnemies: []
+  theKey: {fileID: 0}
 --- !u!114 &1473323982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -567,11 +572,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardScript: {fileID: 1473323981}
   playerLives: 6
+  playerPrefab: {fileID: 0}
   player: {fileID: 1580887174153000, guid: 87ee67315fb03604989376408b637db7, type: 2}
   hasKey: 0
   rooms: []
   levelText: {fileID: 1679619670}
   scoreText: {fileID: 690595344}
+  gameOverImg: {fileID: 0}
 --- !u!4 &1473323983
 Transform:
   m_ObjectHideFlags: 0
@@ -659,3 +666,45 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1679619668}
+--- !u!1001 &1845713734
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4144640098407730, guid: 661aae23f1baf26438ffd77b3a1a1861, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 6.086241
+      objectReference: {fileID: 0}
+    - target: {fileID: 4144640098407730, guid: 661aae23f1baf26438ffd77b3a1a1861, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 6.91043
+      objectReference: {fileID: 0}
+    - target: {fileID: 4144640098407730, guid: 661aae23f1baf26438ffd77b3a1a1861, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.06689453
+      objectReference: {fileID: 0}
+    - target: {fileID: 4144640098407730, guid: 661aae23f1baf26438ffd77b3a1a1861, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4144640098407730, guid: 661aae23f1baf26438ffd77b3a1a1861, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4144640098407730, guid: 661aae23f1baf26438ffd77b3a1a1861, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4144640098407730, guid: 661aae23f1baf26438ffd77b3a1a1861, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4144640098407730, guid: 661aae23f1baf26438ffd77b3a1a1861, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 661aae23f1baf26438ffd77b3a1a1861, type: 2}
+  m_IsPrefabParent: 0

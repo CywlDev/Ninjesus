@@ -41,7 +41,7 @@ public class ZombieScript : MonoBehaviour {
     void Start()
     {
         animator = this.GetComponent<Animator>();
-        reactTime = Random.Range(1,2);
+        reactTime = 2;
         akt_time = 0;
         charge_direction = 0;
         player=GameObject.FindGameObjectWithTag("Player");
@@ -98,45 +98,9 @@ public class ZombieScript : MonoBehaviour {
 
     void Update()
     {
+        
 
-
-        if (noaggro <= 0)
-        {
-            if (Vector3.Distance(transform.position, player.transform.position) <= 4)
-            {
-
-                if (!Physics.Linecast(player.transform.position, transform.position, ~(1 << 8))
-                ) //0nly layer 8 ,0x00000100
-                {
-                    
-                    direction = new Vector2((player.transform.position.x - transform.position.x),
-                        (player.transform.position.y - transform.position.y));
-
-                    if (player.transform.position.x < transform.position.x)
-                    {
-
-                        changeState(STATE_WALK_LEFT);
-                        _currentDirection = "left";
-                    }
-                    else if(player.transform.position.x > transform.position.x)
-                    {
-                        changeState(STATE_WALK_RIGHT);
-                        _currentDirection = "right";
-                    }
-                    //Debug.Log(hit.transform.name);
-                    
-                    step = speed * Time.deltaTime /2* addSpeed;
-                    transform.position = Vector3.MoveTowards(transform.position, player.transform.position, step);
-
-                    return;
-
-
-
-                }
-            }
-
-            //Here Call any function U want Like Shoot at here or something
-        }
+        
 
         
         if(stop == true)
@@ -159,6 +123,43 @@ public class ZombieScript : MonoBehaviour {
         }
         else
         {
+            if (noaggro <= 0)
+            {
+                if (Vector3.Distance(transform.position, player.transform.position) <= 4)
+                {
+
+                    if (!Physics.Linecast(player.transform.position, transform.position, ~(1 << 8))
+                    ) //0nly layer 8 ,0x00000100
+                    {
+                    
+                        direction = new Vector2((player.transform.position.x - transform.position.x),
+                            (player.transform.position.y - transform.position.y));
+
+                        if (player.transform.position.x < transform.position.x)
+                        {
+
+                            changeState(STATE_WALK_LEFT);
+                            _currentDirection = "left";
+                        }
+                        else if(player.transform.position.x > transform.position.x)
+                        {
+                            changeState(STATE_WALK_RIGHT);
+                            _currentDirection = "right";
+                        }
+                        //Debug.Log(hit.transform.name);
+                    
+                        step = speed * Time.deltaTime /2* addSpeed;
+                        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, step);
+
+                        return;
+
+
+
+                    }
+                }
+
+                //Here Call any function U want Like Shoot at here or something
+            }
             //charge_direction = 0;
             if (charge_direction==0)
             {
