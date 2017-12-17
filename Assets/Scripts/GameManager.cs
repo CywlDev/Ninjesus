@@ -5,6 +5,7 @@ using System.Linq;
 using RoomGen;
 using RoomGen.Enums;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour {
 
 	private int score;
 	public Text scoreText;
+	public GameObject gameOverImg;
 	
 	// Use this for initialization
 	void Awake () 
@@ -108,8 +110,10 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 		player = Instantiate (player, new Vector3 (7, 7, 0f), Quaternion.identity) as GameObject;
+		player.GetComponent<SpriteRenderer>().color = new Color(1f,1f, 1f); //reset color of sprite renderer
 		HealthScript hs = player.GetComponent<HealthScript>();
 		hs.hp = playerLives;
+		score = 0;
 
 		LoadLevelWithCoords(7, 7);
 	}
@@ -214,7 +218,15 @@ public class GameManager : MonoBehaviour {
 
 	public void GameOver()
 	{
-		enabled = false;
+//		enabled = false;
+//		gameOverImg.SetActive(true);
+		
+//		Scene loadedLevel = SceneManager.GetActiveScene ();
+//		player.transform.SetPositionAndRotation(new Vector3(0f,0f,0f), Quaternion.identity);
+//		SceneManager.LoadScene (loadedLevel.buildIndex);
+		this.boardScript.aliveEnemies = new List<GameObject>();
+		this.boardScript.theKey = null;
+		InitGame();
 	}
 	
 	// Update is called once per frame

@@ -39,12 +39,20 @@ public class HealthScript : MonoBehaviour {
 
 		}
 		
+		ParticleSystem ps = GetComponentInChildren<ParticleSystem>();
+		if (ps != null)
+		{
+			ps.Play();
+		}
+		
 		if (hp <= 0)
 		{
 			// Dead!
 			if (obj != null)
 			{
 				// todo show game over
+				GameManager.instance.GameOver();
+				Destroy(gameObject);
 			}
 			else
 			{

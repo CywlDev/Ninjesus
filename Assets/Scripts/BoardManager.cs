@@ -24,8 +24,9 @@ public class BoardManager : MonoBehaviour {
 	
 	public GameObject[] floorTiles;
 	public GameObject[] wallTiles;
+	public GameObject[] obstacleTiles;
+	
 	public GameObject[] enemies;
-
 
 	private Transform boardHolder;
 	private List<Vector3> gridPositions = new List<Vector3>();
@@ -33,8 +34,8 @@ public class BoardManager : MonoBehaviour {
 	public List<List<int>> level;
 	public Room currentRoom;
 
-	private List<GameObject> aliveEnemies = new List<GameObject>();
-	private GameObject theKey = null;
+	public List<GameObject> aliveEnemies = new List<GameObject>();
+	public GameObject theKey = null;
 
 	public bool Cleared
 	{
@@ -73,7 +74,7 @@ public class BoardManager : MonoBehaviour {
 				switch (tileType) {
 
 					case 1:
-						toSpawn = wallTiles [Random.Range (0, wallTiles.Length)];
+						toSpawn = obstacleTiles [Random.Range (0, obstacleTiles.Length)];
 						break;
 					case 6: // ghost
 						toSpawn = ghost;
