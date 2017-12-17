@@ -52,7 +52,7 @@ public class HealthScript : MonoBehaviour {
 			{
 				// todo show game over
 				GameManager.instance.GameOver();
-				Destroy(gameObject);
+//				Destroy(obj.gameObject);
 			}
 			else
 			{
